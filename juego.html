@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apunta al Planeta · Astronomías del Mundo · Fundacite Caracas</title>
+    <meta name="description" content="Juego astronómico de Fundacite Caracas: apunta tu telescopio al planeta, llena su anillo de enfoque y captura los 8 planetas del sistema solar. Juega en el móvil o en la computadora.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="juego-pagina">
+    <a class="skip-link" href="#juego">Saltar al contenido</a>
+
+    <!-- ============ CABECERA ============ -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">✦</span>
+                <span class="brand-name">Astronomías del Mundo<span class="brand-sub">Apunta al Planeta</span></span>
+            </a>
+            <button class="menu-toggle" type="button" aria-label="Abrir menú">☰</button>
+            <nav class="main-nav" aria-label="Navegación">
+                <a href="index.html">← Volver al portal</a>
+                <a class="nav-cta" href="index.html">Inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============ INTRO ============ -->
+    <section class="aula-hero">
+        <h1>🪐 Apunta al Planeta</h1>
+        <p>Captura los 8 planetas, destruye las naves de combate y colapsa los agujeros negros antes de que devoren tu órbita. Mantén el telescopio (ratón o dedo) sobre un objetivo para llenar su anillo de enfoque.</p>
+    </section>
+
+    <!-- ============ JUEGO ============ -->
+    <main id="juego" class="container" style="padding:22px 24px 64px">
+        <div class="sky-frame">
+            <div class="sky-frame-head">
+                <span>🛰️ Observatorio en línea · Apunta al Planeta</span>
+                <span class="juego-controls">
+                    <label for="game-dif" class="dif-label">Dificultad</label>
+                    <select id="game-dif" aria-label="Dificultad">
+                        <option value="0">Fácil</option>
+                        <option value="1" selected>Normal</option>
+                        <option value="2">Difícil</option>
+                    </select>
+                    <button id="game-sound" type="button" aria-label="Silenciar sonido">🔊</button>
+                </span>
+            </div>
+            <div class="juego-canvas-wrap">
+                <canvas id="game-canvas" width="900" height="650" tabindex="0" aria-label="Juego Apunta al Planeta: apunta y captura los planetas">Tu navegador no soporta este juego.</canvas>
+            </div>
+            <p class="sky-hint">💡 Toca y mantén el dedo (o clic) sobre cualquier objetivo para enfocarlo. Abre la 💎 TIENDA en pleno juego y compra un agujero negro captador: salvará al planeta que iba a escapar. Mientras subes de nivel cambias de escena: cinturón de asteroides, gigantes helados y el corazón de la galaxia. Gira el teléfono a horizontal para la mejor vista.</p>
+        </div>
+    </main>
+
+    <!-- ============ PIE ============ -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a class="brand" href="index.html" style="margin-right:auto">
+                        <span class="brand-mark" aria-hidden="true">✦</span>
+                        <span class="brand-name" style="color:#fff">Astronomías del Mundo<span class="brand-sub">Fundacite Caracas</span></span>
+                    </a>
+                    <p>Juego educativo de la Fundación para el Desarrollo de la Ciencia y la Tecnología. El cielo es nuestra mejor aula.</p>
+                </div>
+                <div>
+                    <h4>Volver</h4>
+                    <a href="index.html">Portal principal</a>
+                    <a href="index.html#astronomos">Grandes astrónomos</a>
+                    <a href="index.html#venezuela">Venezuela</a>
+                </div>
+                <div>
+                    <h4>Explora</h4>
+                    <a href="index.html#planetario">Planetario Stellarium</a>
+                    <a href="aula.html">Aula Virtual</a>
+                    <a href="https://fundacite-caracas.com/" target="_blank" rel="noopener">Fundacite Caracas</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© <span id="year">2026</span> Astronomías del Mundo · Fundacite Caracas</span>
+                <span>Web elaborada por Astronomía Caracas · Desarrollador: Sebastián Alfonzo</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/planetas.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
