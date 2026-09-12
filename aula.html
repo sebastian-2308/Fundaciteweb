@@ -17,46 +17,181 @@
                 <span class="brand-mark" aria-hidden="true">✦</span>
                 <span class="brand-name">Astronomías del Mundo<span class="brand-sub">Aula Virtual</span></span>
             </a>
-            <button class="menu-toggle" type="button" aria-label="Abrir menú">☰</button>
             <nav class="main-nav" aria-label="Navegación">
                 <a href="index.html">← Volver al portal</a>
+                <a href="juego.html">Juego interactivo</a>
                 <a class="nav-cta" href="index.html">Inicio</a>
             </nav>
+            <div class="header-actions">
+                <button class="action-pill-btn theme-toggle-btn" type="button" aria-label="Cambiar tema"><span>☀️ Pergamino</span></button>
+                <button class="action-pill-btn audio-toggle-btn" type="button" aria-label="Música espacial"><span>🔇 Música Cósmica: OFF</span></button>
+            </div>
+            <button class="menu-toggle" type="button" aria-label="Abrir menú">☰</button>
         </div>
     </header>
 
     <!-- ============ INTRO ============ -->
     <section class="aula-hero">
         <h1>🎓 Aula Virtual de Astronomía</h1>
-        <p>Estamos preparando el contenido completo del aula: unidades, lecturas y certificado. Mientras tanto, responde unas preguntas básicas para probar cómo funcionará.</p>
+        <p>Aprende los fundamentos del cosmos, domina la historia de los grandes astrónomos y el patrimonio del cielo venezolano. Completa la evaluación oficial para emitir tu certificado institucional de Fundacite Caracas.</p>
     </section>
 
-    <!-- ============ AVISO EN DESARROLLO ============ -->
-    <div class="dev-bar container">
-        🚧 Apartado en desarrollo — el contenido completo del aula llegará próximamente.
+    <!-- ============ PESTAÑAS DEL AULA ============ -->
+    <div class="container" style="padding-top:32px;">
+        <div class="aula-tabs" role="tablist">
+            <button class="aula-tab active" data-tab="tab-modulos" type="button">📚 1. Módulos de Estudio</button>
+            <button class="aula-tab" data-tab="tab-examen" type="button">✍️ 2. Examen de Certificación</button>
+            <button class="aula-tab" data-tab="tab-cert" type="button">🏆 3. Mi Certificado Oficial</button>
+        </div>
     </div>
 
-    <!-- ============ SONDEO BÁSICO ============ -->
-    <main id="sondeo" class="container" style="padding:26px 24px 64px">
-        <div class="section-head">
-            <span class="section-eyebrow">Sondeo de prueba</span>
-            <h2>Preguntas <span class="accent">básicas de astronomía</span></h2>
-            <p>Seis preguntas sencillas para empezar. Marca tus respuestas y pulsa «Comprobar respuestas» para ver tu nota.</p>
+    <!-- ============ CONTENIDO PRINCIPAL DEL AULA ============ -->
+    <main id="sondeo" class="container" style="padding:10px 24px 72px">
+
+        <!-- PANEL 1: MÓDULOS DE ESTUDIO -->
+        <div class="aula-panel active" id="tab-modulos">
+            <div class="section-head">
+                <span class="section-eyebrow">Programa Didáctico Fundacite</span>
+                <h2>Unidades de <span class="accent">aprendizaje esencial</span></h2>
+                <p>Repasa los tres núcleos temáticos preparados por la Fundación para el Desarrollo de la Ciencia y la Tecnología antes de presentar tu examen.</p>
+            </div>
+
+            <div class="modulos-grid">
+                <div class="modulo-card">
+                    <span class="modulo-num">Módulo 01</span>
+                    <h3>🪐 Mecánica Celeste y Sistema Solar</h3>
+                    <p>Comprende la estructura del sistema solar y las fuerzas físicas que rigen el cosmos:</p>
+                    <ul class="modulo-puntos">
+                        <li><b>Leyes de Kepler:</b> Los planetas orbitan en elipses con el Sol en un foco; viajan más rápido cuanto más cerca están del perihelio.</li>
+                        <li><b>Escala Cósmica:</b> La Unidad Astronómica (UA) equivale a 149.6 millones de km. La luz tarda 8 minutos y 20 segundos en viajar del Sol a la Tierra.</li>
+                        <li><b>Mundos Interiores y Exteriores:</b> Cuatro planetas rocosos (Mercurio, Venus, Tierra, Marte) y cuatro gigantes gaseosos y helados (Júpiter, Saturno, Urano, Neptuno).</li>
+                    </ul>
+                </div>
+
+                <div class="modulo-card">
+                    <span class="modulo-num">Módulo 02</span>
+                    <h3>🔭 Revolución Científica y Pioneros</h3>
+                    <p>El paso del mito a la física matemática universal y la cosmología moderna:</p>
+                    <ul class="modulo-puntos">
+                        <li><b>Copérnico y Galileo:</b> Desmontaron el geocentrismo. El telescopio reveló que la Luna tenía relieve y Júpiter tenía sus propios satélites.</li>
+                        <li><b>Newton y la Gravedad:</b> La misma ley matemática explica la caída de un cuerpo en la Tierra y la órbita de la Luna en el espacio.</li>
+                        <li><b>Einstein y Hawking:</b> La gravedad como deformación del espacio-tiempo, la expansión del cosmos de Hubble y la radiación de los agujeros negros.</li>
+                    </ul>
+                </div>
+
+                <div class="modulo-card">
+                    <span class="modulo-num">Módulo 03</span>
+                    <h3>🇻🇪 El Cielo de Venezuela y Memoria</h3>
+                    <p>Nuestra posición geográfica ecuatorial privilegiada y la tradición astronómica nacional:</p>
+                    <ul class="modulo-puntos">
+                        <li><b>Observatorio Cagigal (1888):</b> Baluarte científico caraqueño donde se fijó el meridiano geodésico y el reloj oficial del país.</li>
+                        <li><b>Humboldt en El Ávila:</b> Alexander von Humboldt cartografió con telescopio las estrellas australes desde la cordillera de la costa en 1799.</li>
+                        <li><b>Ventana Bipolar Celeste:</b> En Caracas (10.5° N) se observan constelaciones boreales y australes, como la mítica Cruz del Sur sobre el horizonte.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:20px;">
+                <button class="btn btn-primary aula-tab" data-tab="tab-examen" type="button" style="padding:14px 28px; font-size:16px;">
+                    Ir al Examen de Certificación →
+                </button>
+            </div>
         </div>
 
-        <div class="unidad">
-            <div class="unidad-head">
-                <span class="unidad-num">Sondeo 001</span>
-                <h2>Lo esencial del cielo</h2>
+        <!-- PANEL 2: EXAMEN DE CERTIFICACIÓN -->
+        <div class="aula-panel" id="tab-examen">
+            <div class="section-head">
+                <span class="section-eyebrow">Evaluación Oficial</span>
+                <h2>Examen de <span class="accent">Conocimientos Astronómicos</span></h2>
+                <p>Diez preguntas para validar tu aprendizaje. Aprueba con 80% o más (mínimo 8 aciertos) para desbloquear y personalizar tu Certificado de Honor oficial.</p>
             </div>
-            <div class="preguntas" id="preguntas"></div>
-            <div class="unidad-acciones">
-                <button class="btn-check" id="sondeo-check" type="button">Comprobar respuestas</button>
-                <button class="btn-retry" id="sondeo-retry" type="button">Reintentar</button>
-                <span class="unidad-nota" id="sondeo-nota"></span>
+
+            <div class="unidad">
+                <div class="unidad-head">
+                    <span class="unidad-num">Examen Oficial FDC-01</span>
+                    <h2>Evaluación Teórica · Astronomías del Mundo</h2>
+                </div>
+                <div class="preguntas" id="preguntas"></div>
+                <div class="unidad-acciones">
+                    <button class="btn-check" id="sondeo-check" type="button">Comprobar respuestas</button>
+                    <button class="btn-retry" id="sondeo-retry" type="button">Reintentar examen</button>
+                    <span class="unidad-nota" id="sondeo-nota"></span>
+                </div>
+
+                <div id="cert-unlock-banner" style="display:none; margin-top:24px; padding:20px; background:var(--card); border:2px solid var(--gold); border-radius:12px; text-align:center;">
+                    <span style="font-size:32px;">🎉</span>
+                    <h3 style="font-family:var(--serif); font-size:22px; color:var(--ink); margin:8px 0;">¡Felicitaciones! Has aprobado con excelencia</h3>
+                    <p style="font-size:15px; color:var(--ink-soft); margin-bottom:16px;">Tu nota califica para la emisión del Diploma Oficial de Fundacite Caracas.</p>
+                    <button class="btn btn-gold aula-tab" data-tab="tab-cert" type="button">
+                        Ver y emitir mi Certificado Oficial 🏆
+                    </button>
+                </div>
             </div>
-            <p class="sondeo-note">Estas preguntas son solo una muestra del formato. El aula completa, con unidades, lecturas y certificado, está en desarrollo.</p>
         </div>
+
+        <!-- PANEL 3: CERTIFICADO OFICIAL -->
+        <div class="aula-panel" id="tab-cert">
+            <div class="section-head">
+                <span class="section-eyebrow">Acreditación Oficial</span>
+                <h2>Certificado <span class="accent">de Honor Fundacite</span></h2>
+                <p>Ingresa tu nombre y apellido para plasmarlo en tu diploma. Puedes imprimirlo o guardarlo como documento digital en PDF.</p>
+            </div>
+
+            <div class="cert-container">
+                <div style="max-width:480px; margin:0 auto 28px; text-align:center;">
+                    <label for="cert-input-name" style="display:block; font-weight:700; font-size:14px; margin-bottom:8px; color:var(--ink);">
+                        Nombre y Apellido del Estudiante:
+                    </label>
+                    <input type="text" id="cert-input-name" placeholder="Ej: Sebastián Alfonzo" style="width:100%; padding:12px 18px; border:2px solid var(--gold); border-radius:999px; font-size:16px; text-align:center; font-family:var(--serif); font-weight:700; color:var(--ink); background:var(--card);">
+                </div>
+
+                <!-- DIPLOMA IMPRIMIBLE -->
+                <div class="cert-paper" id="cert-print-area">
+                    <div class="cert-corner cert-c-tl" aria-hidden="true"></div>
+                    <div class="cert-corner cert-c-tr" aria-hidden="true"></div>
+                    <div class="cert-corner cert-c-bl" aria-hidden="true"></div>
+                    <div class="cert-corner cert-c-br" aria-hidden="true"></div>
+
+                    <div class="cert-seal" aria-hidden="true">✦</div>
+                    <p class="cert-institution">Fundación para el Desarrollo de la Ciencia y la Tecnología · Fundacite Caracas</p>
+                    <h2 class="cert-title">DIPLOMA DE RECONOCIMIENTO EN ASTRONOMÍA</h2>
+                    <p class="cert-subtitle">Programa Educativo y Divulgativo «Astronomías del Mundo»</p>
+
+                    <p class="cert-awarded-to">Certifica con honor que:</p>
+                    <div class="cert-student-name" id="cert-target-name">Nombre del Estudiante</div>
+
+                    <p class="cert-body-text">
+                        Ha completado satisfactoriamente el itinerario de formación astronómica, demostrando solvencia teórica en mecánica celeste, historia de los grandes astrónomos de la humanidad y el patrimonio astronómico de Venezuela.
+                    </p>
+
+                    <div class="cert-signatures">
+                        <div class="cert-sign-col">
+                            <div class="cert-signature-line">Dirección de Divulgación Científica</div>
+                            <span class="cert-sign-role">Fundacite Caracas</span>
+                        </div>
+                        <div class="cert-sign-col">
+                            <div class="cert-signature-line">Coordinación de Semilleros Científicos</div>
+                            <span class="cert-sign-role">Caracas, Venezuela</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-meta">
+                        <span><b>Fecha de Emisión:</b> <span id="cert-target-date">Septiembre de 2026</span></span>
+                        <span><b>Código de Verificación:</b> <span id="cert-target-folio">FDC-CARACAS-2026-X77</span></span>
+                    </div>
+                </div>
+
+                <div class="cert-actions-bar">
+                    <button class="btn btn-primary" id="cert-print-btn" type="button">
+                        🖨️ Imprimir / Guardar en PDF
+                    </button>
+                    <button class="btn btn-gold aula-tab" data-tab="tab-modulos" type="button">
+                        ← Volver a los Módulos
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- ============ PIE ============ -->

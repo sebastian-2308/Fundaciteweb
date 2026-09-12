@@ -17,22 +17,28 @@
                 <span class="brand-mark" aria-hidden="true">✦</span>
                 <span class="brand-name">Astronomías del Mundo<span class="brand-sub">Fundacite Caracas</span></span>
             </a>
-            <button class="menu-toggle" type="button" aria-label="Abrir menú">☰</button>
             <nav class="main-nav" aria-label="Principal">
                 <a href="#inicio">Inicio</a>
                 <a href="#astronomos">Astrónomos</a>
                 <a href="#venezuela">Venezuela</a>
+                <a href="#explorador">Explorador Solar</a>
                 <a href="#herramientas">Herramientas</a>
                 <a href="#planetario">Planetario</a>
                 <a href="juego.html">Juego</a>
                 <a class="nav-cta" href="aula.html">Aula Virtual</a>
             </nav>
+            <div class="header-actions">
+                <button class="action-pill-btn theme-toggle-btn" type="button" aria-label="Cambiar tema"><span>☀️ Pergamino</span></button>
+                <button class="action-pill-btn audio-toggle-btn" type="button" aria-label="Música espacial"><span>🔇 Música Cósmica: OFF</span></button>
+            </div>
+            <button class="menu-toggle" type="button" aria-label="Abrir menú">☰</button>
         </div>
     </header>
 
     <main id="inicio">
         <!-- ============ HERO ============ -->
         <section class="hero">
+            <canvas id="hero-stars-canvas" class="hero-canvas" aria-hidden="true"></canvas>
             <div class="hero-inner">
                 <div class="hero-emblems" aria-hidden="true">
                     <span class="emblem">🔭</span>
@@ -93,6 +99,23 @@
                     <span class="section-eyebrow">Los sabios del cielo</span>
                     <h2>Los grandes <span class="accent">astrónomos</span></h2>
                     <p>Ocho mentes que cambiaron nuestra forma de entender el universo: del sistema de Copérnico a la expansión de Hubble.</p>
+                </div>
+
+                <div class="astro-filter-bar">
+                    <div class="astro-search-wrap">
+                        <span class="astro-search-icon" aria-hidden="true">🔍</span>
+                        <input type="search" id="astro-search" class="astro-search-input" placeholder="Buscar por astrónomo o concepto (ej: telescopio, relatividad, gravedad, Sol)..." aria-label="Buscar astrónomo">
+                    </div>
+                    <div class="astro-chips">
+                        <button type="button" class="astro-chip active" data-tag="todos">Todos (8)</button>
+                        <button type="button" class="astro-chip" data-tag="renacimiento">Renacimiento</button>
+                        <button type="button" class="astro-chip" data-tag="mecánica celeste">Mecánica celeste</button>
+                        <button type="button" class="astro-chip" data-tag="observación">Observación</button>
+                        <button type="button" class="astro-chip" data-tag="física">Física</button>
+                        <button type="button" class="astro-chip" data-tag="cosmología">Cosmología</button>
+                        <button type="button" class="astro-chip" data-tag="divulgación">Divulgación</button>
+                    </div>
+                    <div id="astro-count" class="astro-count">Mostrando 8 de 8 astrónomos</div>
                 </div>
 
                 <div class="cards">
@@ -237,6 +260,41 @@
                     <p>Observatorios, científicos y tradiciones originarias: también en estas latitudes se mira hacia arriba con vocación y con raíces.</p>
                 </div>
 
+                <!-- ============ PANEL EN TIEMPO REAL: EL CIELO DE CARACAS ============ -->
+                <div class="caracas-sky-dashboard">
+                    <div class="sky-stat-card">
+                        <div class="sky-stat-header">
+                            <span class="sky-stat-tag">Fase Lunar en Vivo</span>
+                            <span style="font-size:18px;" aria-hidden="true">🌘</span>
+                        </div>
+                        <div id="caracas-moon-slot"></div>
+                    </div>
+
+                    <div class="sky-stat-card">
+                        <div class="sky-stat-header">
+                            <span class="sky-stat-tag">Hora Sidérea de Caracas</span>
+                            <span style="font-size:18px;" aria-hidden="true">⏱️</span>
+                        </div>
+                        <div class="sidereal-clock-face" id="caracas-sidereal-slot">--:--:--</div>
+                        <p style="font-size:12.5px; color:var(--muted); margin:0;">
+                            Longitud 66.9° O · Latitud 10.5° N. Mide el giro de la Tierra respecto a las estrellas fijas (no al Sol).
+                        </p>
+                    </div>
+
+                    <div class="sky-stat-card">
+                        <div class="sky-stat-header">
+                            <span class="sky-stat-tag">Mirador Waraira Repano</span>
+                            <span style="font-size:18px;" aria-hidden="true">🔭</span>
+                        </div>
+                        <h4 style="font-family:var(--serif); font-size:17px; color:var(--ink); margin:0;">Objetos clave esta noche</h4>
+                        <ul style="font-size:13px; color:var(--ink-soft); padding-left:18px; margin:0; line-height:1.5;">
+                            <li><b>Cruz del Sur:</b> Asomándose al horizonte sur.</li>
+                            <li><b>Orión y el Cinturón:</b> Cruzando el cenit caraqueño.</li>
+                            <li><b>Relámpago del Catatumbo:</b> Faro cósmico natural de Venezuela.</li>
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="venezuela-grid">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Vista_Panor%C3%A1mica_de_La_Ciudad_de_Caracas_desde_El_Paseo_el_Avila.jpg/960px-Vista_Panor%C3%A1mica_de_La_Ciudad_de_Caracas_desde_El_Paseo_el_Avila.jpg" alt="Vista panorámica de Caracas desde el cerro El Ávila (Waraira Repano)" loading="lazy" width="960" height="540">
                     <div class="venezuela-text">
@@ -283,6 +341,38 @@
                         <h3>El meridiano de Caracas</h3>
                         <p>Desde el Observatorio Cajigal se calculó el meridiano venezolano, la base astronómica de la posición y el mapa geográfico del país.</p>
                         <span class="label">Geodesia</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ EXPLORADOR ORBITAL DEL SISTEMA SOLAR ============ -->
+        <section class="orrery-section" id="explorador">
+            <div class="container">
+                <div class="section-head" style="color:#fff;">
+                    <span class="section-eyebrow" style="color:var(--gold-soft);">Mecánica Celeste en Vivo</span>
+                    <h2 style="color:#fff;">Explorador Orbital <span class="accent" style="color:var(--gold-soft);">del Sistema Solar</span></h2>
+                    <p style="color:rgba(255,255,255,0.85);">Simulación en tiempo real de los 8 planetas según las Leyes de Kepler. Haz clic en cualquier planeta u órbita para inspeccionar sus características astronómicas.</p>
+                </div>
+
+                <div class="orrery-wrap">
+                    <div class="orrery-canvas-card">
+                        <div class="orrery-controls">
+                            <button id="orrery-pause-btn" class="orrery-btn" type="button">⏸ Pausar</button>
+                            <span style="font-size:12px; color:rgba(255,255,255,0.7); margin-left:6px;">Velocidad:</span>
+                            <button class="orrery-btn orrery-speed-btn" data-speed="0.5" type="button">0.5×</button>
+                            <button class="orrery-btn orrery-speed-btn active" data-speed="1" type="button">1×</button>
+                            <button class="orrery-btn orrery-speed-btn" data-speed="5" type="button">5×</button>
+                            <button class="orrery-btn orrery-speed-btn" data-speed="20" type="button">20×</button>
+                        </div>
+                        <canvas id="orrery-canvas" width="600" height="480" aria-label="Simulador interactivo del sistema solar">Tu navegador no soporta el explorador de órbitas.</canvas>
+                        <p style="padding:10px 16px; font-size:12px; color:rgba(255,255,255,0.6); margin:0; background:rgba(0,0,0,0.3);">
+                            💡 <b>Instrucción:</b> Haz clic en cualquier planeta sobre el mapa orbital para ver sus datos físicos y su periodo sidéreo.
+                        </p>
+                    </div>
+
+                    <div class="orrery-info-card" id="orrery-planet-info">
+                        <!-- Rellenado dinámicamente por JavaScript -->
                     </div>
                 </div>
             </div>
