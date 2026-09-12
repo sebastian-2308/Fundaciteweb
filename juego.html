@@ -42,6 +42,7 @@
             <div class="sky-frame-head">
                 <span>🛰️ Observatorio en línea · Apunta al Planeta</span>
                 <span class="juego-controls">
+                    <button id="game-fullscreen" type="button" class="action-pill-btn" style="padding:4px 10px; font-size:12px;" aria-label="Pantalla completa">⛶ Pantalla Completa</button>
                     <label for="game-dif" class="dif-label">Dificultad</label>
                     <select id="game-dif" aria-label="Dificultad">
                         <option value="0">Fácil</option>
@@ -54,7 +55,70 @@
             <div class="juego-canvas-wrap">
                 <canvas id="game-canvas" width="900" height="650" tabindex="0" aria-label="Juego Apunta al Planeta: apunta y captura los planetas">Tu navegador no soporta este juego.</canvas>
             </div>
-            <p class="sky-hint">💡 Toca y mantén el dedo (o clic) sobre cualquier objetivo para enfocarlo. Abre la 💎 TIENDA en pleno juego y compra un agujero negro captador: salvará al planeta que iba a escapar. Mientras subes de nivel cambias de escena: cinturón de asteroides, gigantes helados y el corazón de la galaxia. Gira el teléfono a horizontal para la mejor vista.</p>
+            <p class="sky-hint">💡 <b>Cómo jugar:</b> Mantén presionado el clic, el dedo o la tecla <b>[Espacio]</b> sobre cualquier planeta para llenar su anillo de enfoque. ¡Abre la 💎 TIENDA durante la partida para activar escudos o agujeros negros captadores!</p>
+        </div>
+
+        <!-- ============ EXTRAS DEL JUEGO: TROFEOS Y GUÍA ============ -->
+        <div class="game-extras-grid">
+            <div class="trophy-shelf-card">
+                <h3 class="trophy-shelf-title">🪐 Galería de Trofeos del Sistema Solar</h3>
+                <p style="font-size:13.5px; color:var(--muted); margin:0;">Captura los 8 planetas durante tus partidas para desbloquear su holograma en tu colección personal:</p>
+                
+                <div class="trophy-shelf-grid" id="trophy-shelf-grid">
+                    <div class="trophy-planet-item" id="trophy-Mercurio" title="Mercurio">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #9a9a9a, #222);">☿</div>
+                        <span class="trophy-planet-name">Mercurio</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                    <div class="trophy-planet-item" id="trophy-Venus" title="Venus">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #d9a44a, #332000);">♀</div>
+                        <span class="trophy-planet-name">Venus</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                    <div class="trophy-planet-item" id="trophy-Tierra" title="Tierra">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #4f8ed9, #0a2040);">♁</div>
+                        <span class="trophy-planet-name">Tierra</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                    <div class="trophy-planet-item" id="trophy-Marte" title="Marte">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #c1543c, #3a0d05);">♂</div>
+                        <span class="trophy-planet-name">Marte</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                    <div class="trophy-planet-item" id="trophy-Júpiter" title="Júpiter">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #c89a63, #382410);">♃</div>
+                        <span class="trophy-planet-name">Júpiter</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                    <div class="trophy-planet-item" id="trophy-Saturno" title="Saturno">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #e0c98f, #403418);">♄</div>
+                        <span class="trophy-planet-name">Saturno</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                    <div class="trophy-planet-item" id="trophy-Urano" title="Urano">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #7fc9c9, #103434);">♅</div>
+                        <span class="trophy-planet-name">Urano</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                    <div class="trophy-planet-item" id="trophy-Neptuno" title="Neptuno">
+                        <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #5a74c4, #0e183a);">♆</div>
+                        <span class="trophy-planet-name">Neptuno</span>
+                        <span class="trophy-planet-status">Bloqueado</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trophy-shelf-card">
+                <h3 class="trophy-shelf-title">⌨️ Guía Táctica y Atajos</h3>
+                <ul style="font-size:13.5px; color:var(--ink-soft); padding-left:18px; line-height:1.7; margin-top:10px;">
+                    <li><b>Clic izquierdo / Táctil:</b> Apuntar y enfocar</li>
+                    <li><b>Barra espaciadora:</b> Enfocar objetivo actual</li>
+                    <li><b>Tecla [F]:</b> Alternar Pantalla Completa</li>
+                    <li><b>Tecla [P]:</b> Pausar o reanudar</li>
+                    <li><b>Tecla [M]:</b> Activar / silenciar audio</li>
+                    <li><b>Teclas [1 - 6]:</b> Comprar potenciadores en Tienda</li>
+                </ul>
+            </div>
         </div>
     </main>
 
@@ -88,6 +152,23 @@
             </div>
         </div>
     </footer>
+
+    <!-- ============ REPRODUCTOR FLOTANTE INTERESTELAR (HANS ZIMMER) ============ -->
+    <div class="interstellar-player-dock" id="interstellar-dock">
+        <button class="interstellar-play-btn" id="interstellar-play-btn" type="button" aria-label="Reproducir tema Interestelar">▶</button>
+        <div class="interstellar-info">
+            <span class="interstellar-title">
+                🎹 Tema Interestelar
+                <span class="audio-equalizer-bars" aria-hidden="true">
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                </span>
+            </span>
+            <span class="interstellar-sub">Hans Zimmer · Cornfield Chase & Órgano</span>
+        </div>
+    </div>
 
     <script src="js/planetas.js" defer></script>
     <script src="js/main.js" defer></script>

@@ -101,109 +101,260 @@
                     <p>Ocho mentes que cambiaron nuestra forma de entender el universo: del sistema de Copérnico a la expansión de Hubble.</p>
                 </div>
 
-                <div class="astro-filter-bar">
-                    <div class="astro-search-wrap">
-                        <span class="astro-search-icon" aria-hidden="true">🔍</span>
-                        <input type="search" id="astro-search" class="astro-search-input" placeholder="Buscar por astrónomo o concepto (ej: telescopio, relatividad, gravedad, Sol)..." aria-label="Buscar astrónomo">
-                    </div>
-                    <div class="astro-chips">
-                        <button type="button" class="astro-chip active" data-tag="todos">Todos (8)</button>
-                        <button type="button" class="astro-chip" data-tag="renacimiento">Renacimiento</button>
-                        <button type="button" class="astro-chip" data-tag="mecánica celeste">Mecánica celeste</button>
-                        <button type="button" class="astro-chip" data-tag="observación">Observación</button>
-                        <button type="button" class="astro-chip" data-tag="física">Física</button>
-                        <button type="button" class="astro-chip" data-tag="cosmología">Cosmología</button>
-                        <button type="button" class="astro-chip" data-tag="divulgación">Divulgación</button>
-                    </div>
-                    <div id="astro-count" class="astro-count">Mostrando 8 de 8 astrónomos</div>
-                </div>
-
-                <div class="cards">
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Nikolaus_Kopernikus.jpg/500px-Nikolaus_Kopernikus.jpg" alt="Retrato de Nicolás Copérnico" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Renacimiento</span>
-                            <h3>Nicolás Copérnico</h3>
-                            <span class="sub">1473 – 1543</span>
-                            <p>Propuso que la Tierra y los planetas giran alrededor del Sol: el punto de partida de la astronomía moderna.</p>
-                            <ul><li>Heliocentrismo</li><li>Revolución</li></ul>
+                <div class="astro-rich-grid">
+                    <!-- 1. COPÉRNICO -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Nikolaus_Kopernikus.jpg/500px-Nikolaus_Kopernikus.jpg" alt="Retrato al óleo de Nicolás Copérnico" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Renacimiento</span>
+                                <span class="astro-years-badge">1473 – 1543 · Polonia</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Nicolás Copérnico</h3>
+                                <span class="astro-honor-title">El clérigo que movió la Tierra y detuvo al Sol</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «En el centro de todo reside el Sol. Pues en este hermoso templo, ¿quién colocaría esta lámpara en otro lugar más digno?»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Trabajó en secreto durante más de 30 años en la torre de la catedral de Frombork. Sabía que desplazar a la Tierra del centro contradecía 1.400 años de dogma aristotélico y bíblico; por ello, retrasó la publicación de su obra hasta los últimos días de su vida, recibiendo el primer ejemplar impreso en su lecho de muerte.</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>El modelo heliocéntrico. Demostró que el extraño "retroceso" de planetas como Marte no era magia ni epiciclos artificiales, sino la Tierra adelantando a los mundos exteriores en una órbita más rápida alrededor del Sol.</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>De revolutionibus orbium coelestium (1543)</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Nicolás Copérnico')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
 
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/JKepler.jpg/500px-JKepler.jpg" alt="Retrato de Johannes Kepler" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Mecánica celeste</span>
-                            <h3>Johannes Kepler</h3>
-                            <span class="sub">1571 – 1630</span>
-                            <p>Formuló las tres leyes del movimiento planetario: los planetas orbitan en elipses con el Sol en un foco.</p>
-                            <ul><li>Leyes orbitales</li><li>Matemática</li></ul>
+                    <!-- 2. KEPLER -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/JKepler.jpg/500px-JKepler.jpg" alt="Retrato al óleo de Johannes Kepler" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Mecánica Celeste</span>
+                                <span class="astro-years-badge">1571 – 1630 · Alemania</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Johannes Kepler</h3>
+                                <span class="astro-honor-title">El matemático que descifró las armonías de las órbitas</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «Medí los cielos, ahora mido las sombras de la Tierra. Del cielo era el espíritu, en la tierra reposa el cuerpo.»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Superando una severa miopía infantil por viruela, la extrema pobreza y teniendo que defender en persona a su madre de un juicio por brujería, heredó las mediciones de Tycho Brahe. Durante 8 años intentó encajar la órbita de Marte en un círculo perfecto; al fallar por solo 8 minutos de arco, tomó la valiente decisión de abandonar el dogma del círculo perfecto.</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>Las Tres Leyes del Movimiento Planetario: demostró que las órbitas son elipses con el Sol en un foco, que los planetas aceleran cerca del perihelio y vinculó matemáticamente distancia y periodo orbital ($P^2 = a^3$).</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>Astronomia Nova (1609) y Harmonices Mundi (1619)</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Johannes Kepler')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
 
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg/500px-Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg" alt="Retrato de Galileo Galilei" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Observación</span>
-                            <h3>Galileo Galilei</h3>
-                            <span class="sub">1564 – 1642</span>
-                            <p>Apuntó el telescopio al cielo y vio lunas de Júpiter y fases de Venus: el cielo no giraba alrededor de la Tierra.</p>
-                            <ul><li>Telescopio</li><li>Evidencia</li></ul>
+                    <!-- 3. GALILEO -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg/500px-Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg" alt="Retrato al óleo de Galileo Galilei" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Observación Empírica</span>
+                                <span class="astro-years-badge">1564 – 1642 · Italia</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Galileo Galilei</h3>
+                                <span class="astro-honor-title">El primer mensajero estelar y padre de la ciencia moderna</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «La filosofía está escrita en ese gran libro continuamente abierto ante nuestros ojos: el universo.»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Al enterarse de un juguete de lentes holandés, pulió sus propios vidrios para crear un telescopio de 20 aumentos. En el otoño de 1609 miró a la Luna y vio cráteres; descubrió que Júpiter tenía 4 satélites propios y que Venus tenía fases. En 1633, la Inquisición romana lo forzó a abjurar bajo arresto domiciliario perpetuo.</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>Fundó el método científico empírico: la observación real supera a la filosofía abstracta. Demostró que la Tierra no es el centro de giro de todos los astros y enunció los principios iniciales de inercia y relatividad clásica.</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>Sidereus Nuncius (1610) y Diálogo (1632)</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Galileo Galilei')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
 
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Portrait_of_Sir_Isaac_Newton%2C_1689.jpg/500px-Portrait_of_Sir_Isaac_Newton%2C_1689.jpg" alt="Retrato de Isaac Newton" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Física universal</span>
-                            <h3>Isaac Newton</h3>
-                            <span class="sub">1643 – 1727</span>
-                            <p>La ley de la gravitación universal: la misma fuerza que hace caer una manzana mantiene a los planetas en órbita.</p>
-                            <ul><li>Gravedad</li><li>Principia</li></ul>
+                    <!-- 4. NEWTON -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Portrait_of_Sir_Isaac_Newton%2C_1689.jpg/500px-Portrait_of_Sir_Isaac_Newton%2C_1689.jpg" alt="Retrato al óleo de Isaac Newton" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Física Universal</span>
+                                <span class="astro-years-badge">1643 – 1727 · Inglaterra</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Isaac Newton</h3>
+                                <span class="astro-honor-title">El genio que unificó las leyes del cielo y de la Tierra</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «Si he logrado ver más lejos ha sido porque he subido a hombros de gigantes.»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Durante el confinamiento por la Gran Peste en 1665, aislado en la granja familiar de Woolsthorpe a los 23 años, desarrolló el cálculo, descubrió el espectro cromático de la luz y se preguntó: ¿la fuerza que hace caer una manzana en mi jardín se extiende hasta la órbita de la Luna?</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>La Ley de Gravitación Universal ($F = G \frac{m_1 m_2}{r^2}$) y las Tres Leyes del Movimiento. Por primera vez en la historia humana, una misma fórmula matemática explicó tanto la marea terrestre como el curso perpetuo de los cometas y planetas.</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>Philosophiae Naturalis Principia Mathematica (1687)</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Isaac Newton')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
 
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Albert_Einstein_Head_cleaned.jpg/500px-Albert_Einstein_Head_cleaned.jpg" alt="Retrato de Albert Einstein" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Física moderna</span>
-                            <h3>Albert Einstein</h3>
-                            <span class="sub">1879 – 1955</span>
-                            <p>La relatividad general: la gravedad es la curvatura del espacio y del tiempo, y el Sol desvía la luz de las estrellas.</p>
-                            <ul><li>Relatividad</li><li>Espacio-tiempo</li></ul>
+                    <!-- 5. EINSTEIN -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Albert_Einstein_Head_cleaned.jpg/500px-Albert_Einstein_Head_cleaned.jpg" alt="Fotografía de retrato de Albert Einstein" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Física Moderna</span>
+                                <span class="astro-years-badge">1879 – 1955 · Alemania / EE. UU.</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Albert Einstein</h3>
+                                <span class="astro-honor-title">El arquitecto del espacio y el tiempo curvos</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «La imaginación es más importante que el conocimiento. El conocimiento es limitado; la imaginación abarca el universo entero.»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Trabajando como modesto empleado de la oficina de patentes de Berna en 1905, transformó la física. Diez años más tarde completó la Relatividad General: la materia le dicta al espacio-tiempo cómo curvarse, y el espacio-tiempo curvado le dicta a la materia cómo moverse.</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>Rediseñó la gravedad: el tiempo transcurre más lento en campos gravitatorios intensos (dilatación temporal gravitacional, base científica de la película *Interstellar*). Predijo los agujeros negros, las lentes gravitacionales y las ondas gravitacionales.</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>Teoría de la Relatividad General (1915)</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Albert Einstein')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
 
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Studio_portrait_photograph_of_Edwin_Powell_Hubble_%28cropped%29.JPG/500px-Studio_portrait_photograph_of_Edwin_Powell_Hubble_%28cropped%29.JPG" alt="Retrato de Edwin Hubble" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Cosmología</span>
-                            <h3>Edwin Hubble</h3>
-                            <span class="sub">1889 – 1953</span>
-                            <p>Demostró que el universo se expande: las galaxias se alejan unas de otras y el cosmos tiene historia.</p>
-                            <ul><li>Expansión</li><li>Galaxias</li></ul>
+                    <!-- 6. HUBBLE -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Studio_portrait_photograph_of_Edwin_Powell_Hubble_%28cropped%29.JPG/500px-Studio_portrait_photograph_of_Edwin_Powell_Hubble_%28cropped%29.JPG" alt="Retrato de estudio de Edwin Hubble" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Cosmología</span>
+                                <span class="astro-years-badge">1889 – 1953 · Estados Unidos</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Edwin Hubble</h3>
+                                <span class="astro-honor-title">El explorador que reveló la inmensidad del universo</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «Equipado con sus cinco sentidos, el ser humano explora el universo que le rodea y llama a esa aventura ciencia.»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Desde la cumbre de Monte Wilson con el telescopio Hooker de 100 pulgadas, midió estrellas variables Cefeidas en la "nebulosa" de Andrómeda, probando que estaba a más de dos millones de años luz: no era una nube de gas de la Vía Láctea, sino otra galaxia entera con cientos de miles de millones de soles.</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>La Ley de Hubble-Lemaître: demostró que cuanto más lejana está una galaxia, más rápido se aleja de nosotros (corrimiento hacia el rojo o *redshift*). Probó que el cosmos no es estático ni eterno, sino que se expande continuamente desde el Big Bang.</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>Expansión del Universo y Ley de Hubble (1929)</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Edwin Hubble')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
 
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Stephen_Hawking.StarChild.jpg/500px-Stephen_Hawking.StarChild.jpg" alt="Retrato de Stephen Hawking" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Astrofísica</span>
-                            <h3>Stephen Hawking</h3>
-                            <span class="sub">1942 – 2018</span>
-                            <p>Unificó la gravedad y la física cuántica en los agujeros negros: la radiación de Hawking y el origen del tiempo.</p>
-                            <ul><li>Agujeros negros</li><li>Cosmología</li></ul>
+                    <!-- 7. HAWKING -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Stephen_Hawking.StarChild.jpg/500px-Stephen_Hawking.StarChild.jpg" alt="Retrato fotográfico de Stephen Hawking" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Astrofísica Teórica</span>
+                                <span class="astro-years-badge">1942 – 2018 · Reino Unido</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Stephen Hawking</h3>
+                                <span class="astro-honor-title">El conquistador del horizonte de sucesos y el tiempo</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «Por difícil que parezca la vida, siempre hay algo que puedes hacer y en lo que puedes tener éxito. Mientras haya vida, hay esperanza.»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Diagnosticado con esclerosis lateral amiotrófica (ELA) a los 21 años con un pronóstico de dos años de vida, desafió toda expectativa durante cinco décadas. Sin movilidad y comunicándose a través de un sintetizador de voz, concibió complejas geometrías cuánticas del cosmos en su mente.</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>La Radiación de Hawking: unió por primera vez la Relatividad General y la Mecánica Cuántica al probar que los agujeros negros no son prisiones absolutas, sino que emiten radiación térmica en su horizonte y con el tiempo se evaporan.</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>A Brief History of Time (1988)</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Stephen Hawking')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
 
-                    <article class="card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Carl_Sagan_Planetary_Society_cropped.png/500px-Carl_Sagan_Planetary_Society_cropped.jpg" alt="Retrato de Carl Sagan" loading="lazy" width="500" height="640">
-                        <div class="card-body">
-                            <span class="card-tag">Divulgación</span>
-                            <h3>Carl Sagan</h3>
-                            <span class="sub">1934 – 1996</span>
-                            <p>Llevó el cosmos a millones de personas con la serie Cosmos y el mensaje de la sonda Voyager hacia las estrellas.</p>
-                            <ul><li>Divulgación</li><li>Cosmos</li></ul>
+                    <!-- 8. SAGAN -->
+                    <article class="astro-rich-card">
+                        <div class="astro-card-top">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Carl_Sagan_Planetary_Society_cropped.png/500px-Carl_Sagan_Planetary_Society_cropped.jpg" alt="Retrato fotográfico de Carl Sagan" loading="lazy" width="500" height="640">
+                            <div class="astro-card-badges">
+                                <span class="astro-tag-epoch">Divulgación y Astrobiología</span>
+                                <span class="astro-years-badge">1934 – 1996 · Estados Unidos</span>
+                            </div>
+                        </div>
+                        <div class="astro-card-content">
+                            <div class="astro-name-wrap">
+                                <h3>Carl Sagan</h3>
+                                <span class="astro-honor-title">El embajador de la Tierra hacia las estrellas</span>
+                            </div>
+                            <blockquote class="astro-quote-lead">
+                                «El cosmos está dentro de nosotros. Estamos hechos de materia estelar. Somos el medio para que el cosmos se conozca a sí mismo.»
+                            </blockquote>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">📖 La Historia y el Desafío</span>
+                                <p>Científico de la NASA en las misiones Mariner, Viking y Voyager. Diseñó el Disco de Oro de las Voyager que hoy surca el espacio interestelar. Cuando la Voyager 1 cruzó Neptuno en 1990, convenció a la agencia de girar la cámara hacia la Tierra para capturar la célebre foto del «Punto Azul Pálido».</p>
+                            </div>
+                            <div class="astro-block-section">
+                                <span class="astro-block-label">💡 El Salto Científico</span>
+                                <p>Descifró el brutal efecto invernadero de Venus (460 °C), postuló la existencia de océanos de agua líquida bajo el hielo de la luna Europa y fundó las bases de la moderna búsqueda de biofirmas e inteligencia extraterrestre (SETI).</p>
+                            </div>
+                            <div class="astro-masterpiece">
+                                <span>📜 Obra cumbre: <b>Cosmos: Un viaje personal (1980) y Disco de Oro Voyager</b></span>
+                                <button class="astro-expand-btn" onclick="openAstroModal('Carl Sagan')" type="button">✦ Ver Crónica</button>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -516,6 +667,23 @@
             </div>
         </div>
     </footer>
+
+    <!-- ============ REPRODUCTOR FLOTANTE INTERESTELAR (HANS ZIMMER) ============ -->
+    <div class="interstellar-player-dock" id="interstellar-dock">
+        <button class="interstellar-play-btn" id="interstellar-play-btn" type="button" aria-label="Reproducir tema Interestelar">▶</button>
+        <div class="interstellar-info">
+            <span class="interstellar-title">
+                🎹 Tema Interestelar
+                <span class="audio-equalizer-bars" aria-hidden="true">
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                </span>
+            </span>
+            <span class="interstellar-sub">Hans Zimmer · Cornfield Chase & Órgano</span>
+        </div>
+    </div>
 
     <script src="js/main.js" defer></script>
 </body>

@@ -67,13 +67,44 @@ function initTheme() {
 }
 
 // =============================================
-// AUDIO AMBIENTAL PROCEDURAL (WEB AUDIO API)
-// Sin archivos pesados: 100% generado en vivo
+// MOTOR DE MÚSICA PROCEDURAL: INTERSTELAR (HANS ZIMMER)
+// Síntesis de órgano de tubos, arpegios ascendentes y
+// tic-tac de dilatación temporal (100% Web Audio API)
 // =============================================
 let audioCtx = null;
-let ambientGain = null;
 let isAudioActive = false;
-let oscillators = [];
+let interstellarTimer = null;
+let currentChordIndex = 0;
+let noteIndex = 0;
+let filterNode = null;
+let masterMusicGain = null;
+let delayNode = null;
+let delayGain = null;
+
+// Acordes de Hans Zimmer (Cornfield Chase / First Step):
+// Am -> F -> C -> G
+const INTERSTELLAR_CHORDS = [
+    {
+        name: 'Am',
+        rootBass: 55.00, // A1
+        notes: [220.00, 329.63, 440.00, 523.25, 659.25, 523.25, 440.00, 329.63] // A3, E4, A4, C5, E5, C5, A4, E4
+    },
+    {
+        name: 'F',
+        rootBass: 43.65, // F1
+        notes: [174.61, 261.63, 349.23, 440.00, 523.25, 440.00, 349.23, 261.63] // F3, C4, F4, A4, C5, A4, F4, C4
+    },
+    {
+        name: 'C',
+        rootBass: 32.70, // C1 (pedal bajo profundo)
+        notes: [196.00, 261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 261.63] // G3, C4, E4, G4, C5, G4, E4, C4
+    },
+    {
+        name: 'G',
+        rootBass: 49.00, // G1
+        notes: [196.00, 293.66, 392.00, 493.88, 587.33, 493.88, 392.00, 293.66] // G3, D4, G4, B4, D5, B4, G4, D4
+    }
+];
 
 function getAudioContext() {
     if (!audioCtx) {
@@ -86,8 +117,8 @@ function getAudioContext() {
     return audioCtx;
 }
 
+// Reproduce un toque de campana celestial para retroalimentación de UI
 function playChime(freq = 523.25) {
-    if (!isAudioActive) return;
     const ctx = getAudioContext();
     if (!ctx) return;
     try {
@@ -96,85 +127,203 @@ function playChime(freq = 523.25) {
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, ctx.currentTime);
         gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
+        gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.65);
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start();
-        osc.stop(ctx.currentTime + 0.65);
+        osc.stop(ctx.currentTime + 0.7);
     } catch (e) { /* ignore */ }
 }
 
-function startCosmicAmbient() {
+// Genera un tono de órgano de iglesia con múltiples armónicos
+function playOrganNote(freq, duration = 0.14, isPedal = false) {
+    const ctx = getAudioContext();
+    if (!ctx || !isAudioActive || !masterMusicGain) return;
+
+    try {
+        const t = ctx.currentTime;
+        const noteGain = ctx.createGain();
+
+        // 1. Fundamental (flautado 8')
+        const osc1 = ctx.createOscillator();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, t);
+
+        // 2. Octava superior (octava 4') para brillo catedralicio
+        const osc2 = ctx.createOscillator();
+        osc2.type = isPedal ? 'sawtooth' : 'triangle';
+        osc2.frequency.setValueAtTime(isPedal ? freq : freq * 2, t);
+
+        // Envolvente de volumen de órgano
+        const maxVol = isPedal ? 0.35 : 0.18;
+        noteGain.gain.setValueAtTime(0.0001, t);
+        noteGain.gain.linearRampToValueAtTime(maxVol, t + 0.02);
+        noteGain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+
+        osc1.connect(noteGain);
+        osc2.connect(noteGain);
+
+        // Conectar al filtro resonante del órgano y a la reverberación
+        noteGain.connect(filterNode);
+        noteGain.connect(delayNode);
+
+        osc1.start(t);
+        osc2.start(t);
+        osc1.stop(t + duration + 0.05);
+        osc2.stop(t + duration + 0.05);
+    } catch (e) { /* ignore */ }
+}
+
+// Tic-tac del tiempo de relatividad (Miller's planet / cada segundo cuenta)
+function playRelativityTick() {
+    const ctx = getAudioContext();
+    if (!ctx || !isAudioActive || !masterMusicGain) return;
+    try {
+        const t = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const tickGain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1480, t);
+        osc.frequency.exponentialRampToValueAtTime(80, t + 0.035);
+
+        tickGain.gain.setValueAtTime(0.08, t);
+        tickGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.035);
+
+        osc.connect(tickGain);
+        tickGain.connect(masterMusicGain);
+
+        osc.start(t);
+        osc.stop(t + 0.04);
+    } catch (e) {}
+}
+
+function startInterstellarMusic() {
     const ctx = getAudioContext();
     if (!ctx) return;
 
     try {
-        ambientGain = ctx.createGain();
-        ambientGain.gain.setValueAtTime(0.0001, ctx.currentTime);
-        ambientGain.gain.linearRampToValueAtTime(0.06, ctx.currentTime + 3);
+        // Cadena de audio maestra
+        masterMusicGain = ctx.createGain();
+        masterMusicGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        masterMusicGain.gain.linearRampToValueAtTime(0.75, ctx.currentTime + 2.5);
 
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(320, ctx.currentTime);
+        // Filtro de órgano catedralicio con barrido dinámico
+        filterNode = ctx.createBiquadFilter();
+        filterNode.type = 'lowpass';
+        filterNode.frequency.setValueAtTime(850, ctx.currentTime);
+        filterNode.Q.value = 2.5;
 
-        ambientGain.connect(filter);
-        filter.connect(ctx.destination);
+        // Simulador de reverberación espacial / acústica de catedral
+        delayNode = ctx.createDelay();
+        delayNode.delayTime.value = 0.38; // 380 ms de eco catedralicio
+        delayGain = ctx.createGain();
+        delayGain.gain.value = 0.42;
 
-        // Acorde espacial (C2, G2, C3, E3)
-        const chordFrequencies = [65.41, 98.00, 130.81, 164.81];
-        oscillators = chordFrequencies.map((f, i) => {
-            const osc = ctx.createOscillator();
-            const oscGain = ctx.createGain();
-            osc.type = i % 2 === 0 ? 'sine' : 'triangle';
-            osc.frequency.setValueAtTime(f + (i * 0.35), ctx.currentTime);
-            oscGain.gain.value = 0.25;
-            osc.connect(oscGain);
-            oscGain.connect(ambientGain);
-            osc.start();
-            return osc;
-        });
+        filterNode.connect(masterMusicGain);
+        delayNode.connect(delayGain);
+        delayGain.connect(delayNode); // feedback loop
+        delayGain.connect(masterMusicGain);
+
+        masterMusicGain.connect(ctx.destination);
 
         isAudioActive = true;
+        currentChordIndex = 0;
+        noteIndex = 0;
+
+        // Barrido dinámico del filtro (Crescendo característico de Zimmer)
+        filterNode.frequency.linearRampToValueAtTime(2600, ctx.currentTime + 30);
+
+        // Arpegiador continuo a 118 BPM (cada semicorchea ~ 127 ms)
+        const noteStepMs = 128;
+        let tickCounter = 0;
+
+        interstellarTimer = setInterval(() => {
+            if (!isAudioActive) return;
+
+            const chord = INTERSTELLAR_CHORDS[currentChordIndex];
+
+            // Al inicio de cada ciclo de arpegio (8 notas), tocar el pedal bajo de órgano
+            if (noteIndex === 0) {
+                playOrganNote(chord.rootBass, 0.95, true);
+            }
+
+            // Tic-tac de dilatación temporal cada 4 semicorcheas (cada negra)
+            if (tickCounter % 4 === 0) {
+                playRelativityTick();
+            }
+            tickCounter++;
+
+            // Tocar la nota del arpegio
+            const noteFreq = chord.notes[noteIndex];
+            playOrganNote(noteFreq, 0.16, false);
+
+            noteIndex++;
+            if (noteIndex >= chord.notes.length) {
+                noteIndex = 0;
+                currentChordIndex = (currentChordIndex + 1) % INTERSTELLAR_CHORDS.length;
+            }
+        }, noteStepMs);
+
+        updateMusicUI(true);
     } catch (e) {
-        console.warn('Audio contextual no disponible', e);
+        console.warn('No se pudo inicializar la música Interestelar', e);
     }
 }
 
-function stopCosmicAmbient() {
-    if (!audioCtx || !ambientGain) return;
+function stopInterstellarMusic() {
+    if (!audioCtx || !masterMusicGain) return;
     try {
-        ambientGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+        masterMusicGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
         setTimeout(() => {
-            oscillators.forEach((o) => { try { o.stop(); o.disconnect(); } catch (e) {} });
-            oscillators = [];
+            clearInterval(interstellarTimer);
+            interstellarTimer = null;
             isAudioActive = false;
+            updateMusicUI(false);
         }, 1300);
-    } catch (e) {}
+    } catch (e) {
+        isAudioActive = false;
+        updateMusicUI(false);
+    }
+}
+
+function updateMusicUI(isPlaying) {
+    // Actualizar botones de cabecera
+    document.querySelectorAll('.audio-toggle-btn').forEach((btn) => {
+        btn.classList.toggle('active', isPlaying);
+        btn.innerHTML = isPlaying
+            ? '<span>🎹 Interestelar: ON</span>'
+            : '<span>🔇 Música Interestelar: OFF</span>';
+        btn.setAttribute('title', isPlaying ? 'Silenciar banda sonora' : 'Reproducir tema de Interestelar');
+    });
+
+    // Actualizar reproductores flotantes
+    document.querySelectorAll('.interstellar-player-dock').forEach((dock) => {
+        dock.classList.toggle('playing', isPlaying);
+        const playBtn = dock.querySelector('.interstellar-play-btn');
+        if (playBtn) playBtn.textContent = isPlaying ? '⏸' : '▶';
+    });
 }
 
 function initAudioAtmosphere() {
-    const btns = document.querySelectorAll('.audio-toggle-btn');
-    if (!btns.length) return;
-
-    const updateBtns = (active) => {
-        btns.forEach((btn) => {
-            btn.classList.toggle('active', active);
-            btn.innerHTML = active
-                ? '<span>🎵 Música Cósmica: ON</span>'
-                : '<span>🔇 Música Cósmica: OFF</span>';
-            btn.setAttribute('title', active ? 'Silenciar música espacial' : 'Activar atmósfera espacial sintetizada');
-        });
-    };
-
-    btns.forEach((btn) => {
+    // Conectar botones de cabecera
+    document.querySelectorAll('.audio-toggle-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
             if (!isAudioActive) {
-                startCosmicAmbient();
-                updateBtns(true);
+                startInterstellarMusic();
             } else {
-                stopCosmicAmbient();
-                updateBtns(false);
+                stopInterstellarMusic();
+            }
+        });
+    });
+
+    // Conectar reproductores flotantes
+    document.querySelectorAll('.interstellar-play-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            if (!isAudioActive) {
+                startInterstellarMusic();
+            } else {
+                stopInterstellarMusic();
             }
         });
     });
@@ -325,122 +474,115 @@ function initHeroStars() {
 }
 
 // =============================================
-// FILTRADO DINÁMICO Y MODAL DE ASTRÓNOMOS
+// CRÓNICAS BIOGRÁFICAS Y RESEÑAS DE ASTRÓNOMOS
 // =============================================
 const ASTRONOMERS_DATA = {
     'Nicolás Copérnico': {
-        quote: 'Saber que sabemos lo que sabemos, y saber que no sabemos lo que no sabemos: esa es la verdadera sabiduría.',
-        impact: 'Desafió más de un milenio de dogma ptolemaico con su modelo heliocéntrico, situando al Sol en el centro del sistema planetario y encendiendo la mecha de la Revolución Científica.'
+        title: 'El clérigo que movió la Tierra y detuvo al Sol',
+        era: 'Renacimiento (1473 – 1543 · Polonia)',
+        quote: 'En el centro de todo reside el Sol. Pues en este hermoso templo, ¿quién colocaría esta lámpara en otro lugar más digno desde el cual iluminarlo todo?',
+        story: 'Nacido en Toruń y educado en Cracovia e Italia, Copérnico fue matemático, médico, diplomático y canónigo de la Iglesia. Durante más de tres décadas trabajó desde una solitaria torre en la catedral de Frombork, midiendo la posición de los planetas con instrumentos de madera rústicos. Se dio cuenta de que la hipótesis geocéntrica de Ptolomeo requería decenas de artificios geométricos imposibles (ecuantes y epiciclos). Al colocar con osadía matemática al Sol en el centro, el universo cobró una armonía perfecta.',
+        eureka: 'El enigma de los planetas que retrocedían (movimiento retrógrado) se resolvió de golpe: no era que Marte o Júpiter frenasen y diesen marcha atrás en el cielo, sino que la Tierra, al viajar más rápido en su órbita interior, los rebasa como un coche rápido en una pista de carreras.',
+        curiosity: 'Temiendo la incomprensión y las acusaciones teológicas, no autorizó la impresión de su obra maestra hasta que un joven matemático protestante, Rheticus, lo convenció al final de su vida. La leyenda histórica cuenta que un ejemplar recién salido de la imprenta llegó a sus manos el 24 de mayo de 1543, apenas unas horas antes de fallecer.',
+        impact: 'Desencadenó la Revolución Científica. Su obra cambió para siempre la concepción del ser humano en el cosmos: la Tierra dejó de ser el estático centro de la creación para convertirse en un viajero estelar más.'
     },
     'Johannes Kepler': {
-        quote: 'La geometría existió antes de la creación; es coetánea con la mente divina.',
-        impact: 'Descubrió que las órbitas planetarias no eran círculos perfectos sino elipses. Sus tres leyes describieron el movimiento celeste con exactitud matemática insuperable.'
+        title: 'El matemático de las armonías celestes',
+        era: 'Mecánica Celeste (1571 – 1630 · Alemania)',
+        quote: 'Medí los cielos, ahora mido las sombras de la Tierra. Del cielo era el espíritu, aquí reposa la sombra del cuerpo.',
+        story: 'Kepler creció en la extrema pobreza, con secuelas físicas y de visión por viruela infantil. Durante años tuvo que defender en persona a su madre, Katharina, de ser quemada viva bajo una acusación inquisitorial por brujería. Su prodigiosa mente matemática le valió convertirse en asistente del noble danés Tycho Brahe en Praga. A la muerte de Tycho, heredó los registros de observación celeste más precisos de la historia.',
+        eureka: 'Durante ocho agotadores años intentó hacer encajar la órbita de Marte en círculos perfectos, el dogma sacrosanto desde Platón. Su cálculo difería de las observaciones reales por solo 8 minutos de arco (menos de un tercio del ancho de la Luna llena). En vez de ocultar el error, concluyó: «Si hubiera creído que podíamos ignorar esos 8 minutos, habría remendado mi hipótesis. Pero como no era lícito ignorarlos, solo ellos condujeron a una reforma total de la astronomía». Fue entonces cuando trazó una elipse.',
+        curiosity: 'Escribió «Somnium» (El Sueño), considerada por Isaac Asimov y Carl Sagan como la primera obra de ciencia ficción de la historia, donde describe un viaje a la Luna y cómo se vería la Tierra rotando desde la superficie lunar.',
+        impact: 'Sus Tres Leyes demostraron que la geometría del cielo es elíptica y precisa, proporcionando la prueba matemática irrefutable que permitió a Isaac Newton formular medio siglo más tarde la gravitación universal.'
     },
     'Galileo Galilei': {
-        quote: 'La filosofía está escrita en ese inmenso libro que continuamente está abierto ante nuestros ojos: el universo.',
-        impact: 'El primer ser humano en orientar un telescopio astronómico hacia el cosmos: descubrió los cráteres lunares, las 4 lunas de Júpiter y las fases de Venus, cambiando la historia humana para siempre.'
+        title: 'El mensajero sideral y padre del método científico',
+        era: 'Observación Empírica (1564 – 1642 · Italia)',
+        quote: 'La filosofía está escrita en ese inmenso libro que continuamente está abierto ante nuestros ojos: el universo. Pero no se puede entender si primero no se aprende su lengua: las matemáticas.',
+        story: 'Profesor en Padua y Pisa, en 1609 oyó noticias de un tubo con dos cristales fabricado en Holanda que agrandaba objetos distantes. Sin haber visto ninguno, pulió sus propias lentes cóncavas y convexas en su taller, logrando un telescopio astronómico de 20 aumentos. Cuando apuntó aquel tubo al cielo nocturno de Venecia en otoño de 1609, lo que vio demolió 2.000 años de filosofía aristotélica.',
+        eureka: 'La Luna no era una esfera pulida e inmaculada de éter puro: tenía cráteres, cadenas montañosas y valles. Miró a Júpiter y descubrió cuatro pequeñas estrellas que lo acompañaban noche tras noche orbitando a su alrededor: no todo giraba alrededor de la Tierra.',
+        curiosity: 'En 1633, anciano, ciego y enfermo, fue llevado ante el tribunal de la Inquisición en Roma. Tuvo que pronunciar de rodillas su abjuración del heliocentrismo para evitar la hoguera. Según la tradición inmortal, al ponerse en pie murmuró entre dientes: «Eppur si muove» (Y sin embargo, se mueve). Pasó sus últimos 9 años confinado en su casa de Arcetri.',
+        impact: 'Estableció el principio fundamental de la ciencia moderna: una hipótesis debe rendirse ante los hechos observados y los experimentos reproducibles. Fundó la cinemática moderna y la astronomía observacional.'
     },
     'Isaac Newton': {
-        quote: 'Si he logrado ver más lejos, ha sido porque he subido a hombros de gigantes.',
-        impact: 'Formuló la Ley de la Gravitación Universal y las tres leyes del movimiento. Unificó por primera vez las reglas de la Tierra con las leyes de los cuerpos celestes.'
+        title: 'El genio que unificó el cielo y la Tierra',
+        era: 'Física Universal (1643 – 1727 · Inglaterra)',
+        quote: 'No sé cómo me verá el mundo, pero a mis ojos he sido sólo como un niño jugando en la orilla del mar, divirtiéndome buscando un guijarro más liso, mientras el inmenso océano de la verdad se extendía inexplorado ante mí.',
+        story: 'Nació prematuro en una granja el día de Navidad de 1642 (según el calendario juliano). En 1665, cuando la Gran Peste bubónica obligó a cerrar la Universidad de Cambridge, el joven Newton de 23 años regresó a la granja de Woolsthorpe. En ese retiro de apenas 18 meses, en lo que se conoce como su «Annus Mirabilis», inventó el cálculo infinitesimal, formuló la teoría óptica del color con prismas y concibió la ley de la gravitación.',
+        eureka: 'Observando una manzana caer en el huerto familiar al atardecer, mientras la Luna brillaba en el cielo, tuvo una epifanía revolucionaria: la misma fuerza invisible que atrae a la fruta hacia el suelo de la Tierra debe extenderse hasta la Luna, curvando su caída en una órbita infinita.',
+        curiosity: 'Para evitar la aberración cromática que emborronaba las imágenes en los telescopios de lentes de Galileo, Newton inventó el primer telescopio reflector con espejo parabólico cóncavo (el Telescopio Newtoniano), diseño que todavía usan los mayores observatorios astronómicos y telescopios espaciales hoy en día.',
+        impact: 'Publicó en 1687 los «Principia Mathematica», considerada la obra científica más influyente jamás escrita. Demostró que el universo se rige por leyes matemáticas universales, unificando la física terrestre con la mecánica celeste.'
     },
     'Albert Einstein': {
-        quote: 'Lo más incomprensible del universo es que sea comprensible.',
-        impact: 'Redefinió la gravedad no como una fuerza invisible a distancia, sino como la curvatura misma del tejido del espacio-tiempo causada por la masa y la energía.'
+        title: 'El arquitecto del espacio y el tiempo curvos',
+        era: 'Física Moderna (1879 – 1955 · Alemania / EE. UU.)',
+        quote: 'La imaginación es más importante que el conocimiento. El conocimiento es limitado; la imaginación abarca el universo entero, estimulando el progreso y dando origen a la evolución.',
+        story: 'Incomprendido por el rígido sistema escolar prusiano, no conseguía puesto académico tras graduarse y terminó trabajando como examinador técnico de tercera clase en la oficina de patentes de Berna en Suiza. En 1905, en sus ratos libres, redactó cuatro artículos que reescribieron la física: el efecto fotoeléctrico (que le valió el Nobel), el movimiento browniano y la Relatividad Especial con la célebre ecuación $E = mc^2$.',
+        eureka: 'En 1907 tuvo lo que llamó «el pensamiento más feliz de mi vida»: una persona en caída libre desde un tejado no siente su propio peso. A partir de esa intuición comprendió que la gravedad y la aceleración son indistinguibles, deduciendo diez años después que la masa y la energía no tiran con cuerdas mágicas, sino que deforman y curvan la propia malla cuatridimensional del espacio-tiempo.',
+        curiosity: 'Su teoría predecía que el tiempo corre más despacio en campos gravitatorios intensos (dilatación temporal). Esta propiedad física real es el núcleo de la película *Interstellar* en el planeta Miller, y es indispensable hoy: los relojes atómicos de los satélites GPS deben compensar este desfase de microsegundos cada día para que la ubicación en tu teléfono no falle por kilómetros.',
+        impact: 'Predijo la existencia de agujeros negros, lentes gravitacionales que amplifican galaxias distantes y las ondas gravitacionales en el tejido cósmico (detectadas por fin por LIGO en 2015, exactamente un siglo después de su predicción).'
     },
     'Edwin Hubble': {
-        quote: 'Equipado con sus cinco sentidos, el hombre explora el universo que le rodea y llama a esa aventura ciencia.',
-        impact: 'Probó que la Vía Láctea no era todo el universo, descubriendo millones de otras galaxias y demostrando que el cosmos se expande continuamente.'
+        title: 'El explorador que reveló la inmensidad del cosmos',
+        era: 'Cosmología Observacional (1889 – 1953 · Estados Unidos)',
+        quote: 'Equipado con sus cinco sentidos, el ser humano explora el universo que le rodea y llama a esa aventura ciencia.',
+        story: 'Atleta consumado, boxeador aficionado y abogado en sus inicios, abandonó la abogacía por su pasión: la astronomía. Tras servir en la Primera Guerra Mundial, se incorporó al Observatorio de Monte Wilson en California, donde acababa de instalarse el telescopio Hooker de 100 pulgadas, el mayor ojo del planeta en ese momento.',
+        eureka: 'En la noche del 5 de octubre de 1923, fotografiando la llamada "nebulosa espiral" de Andrómeda (M31), localizó una estrella variable Cefeida. Al medir su brillo y periodo según la regla descubierta por Henrietta Leavitt, calculó su distancia: ¡estaba a más de dos millones de años luz! Andrómeda no era una nube de polvo de nuestra galaxia, sino un «universo-isla» con sus propios cientos de miles de millones de estrellas. La Vía Láctea era solo una gota en un océano infinito.',
+        curiosity: 'En la placa fotográfica original de vidrio de aquella noche, Hubble tachó con lápiz rojo la letra "N" (creyendo que era una nova) y escribió emocionado: «VAR!» con un signo de admiración, marcando el momento en que la humanidad descubrió el universo extragaláctico.',
+        impact: 'Formuló la Ley de Hubble: demostró que las galaxias se alejan unas de otras a velocidades proporcionales a su distancia (corrimiento al rojo). Derribó la creencia de un universo estático y eterno, dando nacimiento a la cosmología del Big Bang. En su honor, la NASA bautizó al legendario Telescopio Espacial Hubble.'
     },
     'Stephen Hawking': {
-        quote: 'Recuerda mirar hacia arriba, a las estrellas, y no hacia abajo, a tus pies.',
-        impact: 'Demostró que los agujeros negros emiten radiación cuántica (Radiación de Hawking) y unió la termodinámica, la relatividad general y la teoría cuántica.'
+        title: 'El conquistador del horizonte de sucesos y el tiempo',
+        era: 'Astrofísica Teórica (1942 – 2018 · Reino Unido)',
+        quote: 'Recuerda mirar hacia arriba, a las estrellas, y no hacia abajo, a tus pies. Intenta dar sentido a lo que ves y pregúntate qué hace que el universo exista. Sé curioso.',
+        story: 'Estudiando en Oxford y Cambridge a los 21 años, empezó a tropezar y le diagnosticaron Esclerosis Lateral Amiotrófica (ELA). Los médicos le pronosticaron apenas dos años de vida. Sin embargo, su enfermedad progresó más lento de lo esperado. Aunque perdió el uso de brazos, piernas y finalmente su voz natural, conservó intacta su genialidad matemática. Con la ayuda de un software controlado con el movimiento de un músculo de su mejilla, dictó conferencias alrededor del mundo.',
+        eureka: 'En 1974, combinó la Relatividad General con la Mecánica Cuántica en las fronteras de los agujeros negros. Descubrió que las fluctuaciones cuánticas del vacío en el horizonte de sucesos crean pares de partículas donde una cae y la otra escapa. Esto significa que los agujeros negros no son prisiones absolutas: emiten un tenue resplandor térmico (Radiación de Hawking) y, con el tiempo cósmico, se evaporan por completo.',
+        curiosity: 'Poseía un legendario sentido del humor y le gustaba apostar suscripciones a revistas científicas con otros físicos teóricos sobre paradojas de la información. Organizó célebremente una "Fiesta para Viajeros del Tiempo" en la Universidad de Cambridge, pero solo envió las invitaciones después de que la fiesta terminó: nadie asistió, demostrando con picardía que viajar al pasado no parecía factible.',
+        impact: 'Escribió «Breve historia del tiempo», el libro de divulgación científica más vendido de la historia contemporánea (más de 25 millones de ejemplares). Unió como nadie la termodinámica, la relatividad y la física cuántica.'
     },
     'Carl Sagan': {
-        quote: 'El cosmos está dentro de nosotros. Estamos hechos de materia estelar. Somos el medio para que el cosmos se conozca a sí mismo.',
-        impact: 'El más brillante divulgador de la astronomía del siglo XX; acercó el universo a cientos de millones de personas con la legendaria serie Cosmos y los discos de oro de las sondas Voyager.'
+        title: 'El embajador de la Tierra hacia las estrellas',
+        era: 'Astrobiología y Divulgación (1934 – 1996 · Estados Unidos)',
+        quote: 'Mira ese punto. Eso es aquí. Eso es nuestro hogar. Eso somos nosotros. En él todos los que amas, todos los que conoces, cada ser humano que ha existido, vivió su vida en una mota de polvo suspendida en un rayo de sol.',
+        story: 'Hijo de un sastre ucraniano inmigrante en Brooklyn, quedó fascinado por las estrellas en la Feria Mundial de Nueva York de 1939. Profesor en Cornell, asesoró a la NASA en las misiones Mariner, Viking, Pioneer y Voyager. Diseñó el mensaje interestelar grabado en las placas de oro de las nondas Pioneer y los célebres Discos de Oro de las Voyager, que transportan saludos en 55 idiomas, música de Bach, Beethoven y sonidos de ballenas hacia otras civilizaciones.',
+        eureka: 'Analizó las emisiones de radio de Venus en los años 60 cuando la mayoría creía que era un paraíso tropical cubierto de nubes. Sagan demostró que sus nubes eran de ácido sulfúrico concentrado y que un feroz efecto invernadero desbocado elevaba la temperatura a más de 460 °C (suficiente para fundir plomo), una advertencia crucial sobre el cambio climático en la Tierra.',
+        curiosity: 'En 1990, cuando la sonda Voyager 1 cruzó la frontera de Neptuno a 6.000 millones de kilómetros, convenció a la dirección de la NASA de girar su cámara hacia atrás una última vez para tomar un retrato de familia del sistema solar. En esa imagen, la Tierra ocupa menos de un solo píxel: el «Punto Azul Pálido», inspirando su discurso más conmovedor.',
+        impact: 'Con su serie televisiva «Cosmos: Un viaje personal» (vista por más de 500 millones de personas en 60 países), revolucionó la forma en que la humanidad mira el cielo, inspirando a millones de niños y niñas a convertirse en astrónomos y científicos.'
     }
 };
 
-function initAstronomersFilter() {
-    const searchInput = document.getElementById('astro-search');
-    const chips = document.querySelectorAll('.astro-chip');
-    const cards = document.querySelectorAll('#astronomos .card');
-    const countEl = document.getElementById('astro-count');
-    if (!cards.length) return;
-
-    cards.forEach((card) => {
-        const titleEl = card.querySelector('h3');
-        if (!titleEl) return;
-        const name = titleEl.textContent.trim();
-        const body = card.querySelector('.card-body');
-        if (body && !card.querySelector('.card-quote-btn')) {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'card-quote-btn';
-            btn.innerHTML = '✦ Cita y legado';
-            btn.addEventListener('click', () => openAstroModal(name));
-            body.appendChild(btn);
-        }
-    });
-
-    let currentTag = 'todos';
-    let currentSearch = '';
-
-    function filterCards() {
-        let visibleCount = 0;
-        const query = currentSearch.toLowerCase().trim();
-
-        cards.forEach((card) => {
-            const name = (card.querySelector('h3')?.textContent || '').toLowerCase();
-            const tag = (card.querySelector('.card-tag')?.textContent || '').toLowerCase();
-            const text = (card.querySelector('p')?.textContent || '').toLowerCase();
-
-            const matchesTag = (currentTag === 'todos') || tag.includes(currentTag);
-            const matchesSearch = !query || name.includes(query) || tag.includes(query) || text.includes(query);
-
-            if (matchesTag && matchesSearch) {
-                card.classList.remove('is-hidden');
-                visibleCount++;
-            } else {
-                card.classList.add('is-hidden');
-            }
-        });
-
-        if (countEl) {
-            countEl.textContent = `Mostrando ${visibleCount} de ${cards.length} astrónomos`;
-        }
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            currentSearch = e.target.value;
-            filterCards();
-        });
-    }
-
-    chips.forEach((chip) => {
-        chip.addEventListener('click', () => {
-            chips.forEach((c) => c.classList.remove('active'));
-            chip.classList.add('active');
-            currentTag = chip.getAttribute('data-tag') || 'todos';
-            filterCards();
-            playChime(659.25);
-        });
-    });
-
+function openAstroModal(name) {
     let modal = document.getElementById('astro-modal');
     if (!modal) {
         modal = document.createElement('div');
         modal.id = 'astro-modal';
         modal.className = 'modal-overlay';
         modal.innerHTML = `
-            <div class="modal-box" role="dialog" aria-modal="true">
+            <div class="modal-box" role="dialog" aria-modal="true" style="max-width:680px; max-height:85vh; overflow-y:auto;">
                 <button type="button" class="modal-close" aria-label="Cerrar modal">&times;</button>
                 <span class="card-tag" id="modal-tag">Astronomía</span>
-                <h3 id="modal-title" style="margin-top:10px; font-family:var(--serif); font-size:24px;"></h3>
-                <blockquote class="modal-quote" id="modal-quote"></blockquote>
-                <p id="modal-impact" style="font-size:15px; color:var(--ink-soft); line-height:1.6;"></p>
+                <h3 id="modal-title" style="margin:12px 0 2px; font-family:var(--serif); font-size:26px; color:var(--ink);"></h3>
+                <span id="modal-honor" style="display:block; font-size:13px; color:var(--gold); font-weight:700; margin-bottom:12px;"></span>
+                <blockquote class="modal-quote" id="modal-quote" style="margin:8px 0 18px;"></blockquote>
+                
+                <div style="display:flex; flex-direction:column; gap:14px; font-size:14.5px; line-height:1.6; color:var(--ink-soft);">
+                    <div>
+                        <b style="color:var(--ink); display:block; margin-bottom:4px;">📖 Crónica Biográfica y Desafío:</b>
+                        <p id="modal-story" style="margin:0;"></p>
+                    </div>
+                    <div>
+                        <b style="color:var(--gold); display:block; margin-bottom:4px;">💡 El Momento Eureka:</b>
+                        <p id="modal-eureka" style="margin:0;"></p>
+                    </div>
+                    <div>
+                        <b style="color:var(--ink); display:block; margin-bottom:4px;">🔍 Curiosidad Histórica:</b>
+                        <p id="modal-curiosity" style="margin:0;"></p>
+                    </div>
+                    <div>
+                        <b style="color:var(--ink); display:block; margin-bottom:4px;">🏛️ Legado para la Humanidad:</b>
+                        <p id="modal-impact" style="margin:0;"></p>
+                    </div>
+                </div>
             </div>
         `;
         document.body.appendChild(modal);
@@ -450,21 +592,28 @@ function initAstronomersFilter() {
             if (e.target === modal) modal.classList.remove('open');
         });
     }
-}
 
-function openAstroModal(name) {
-    const modal = document.getElementById('astro-modal');
-    if (!modal) return;
-    const info = ASTRONOMERS_DATA[name] || {
-        quote: 'Explorar el cosmos es explorar nuestro propio origen.',
-        impact: 'Figura fundamental en la comprensión humana de las leyes astronómicas.'
-    };
+    const data = ASTRONOMERS_DATA[name];
+    if (!data) return;
 
     document.getElementById('modal-title').textContent = name;
-    document.getElementById('modal-quote').textContent = `«${info.quote}»`;
-    document.getElementById('modal-impact').textContent = info.impact;
+    document.getElementById('modal-tag').textContent = data.era;
+    document.getElementById('modal-honor').textContent = data.title;
+    document.getElementById('modal-quote').textContent = `«${data.quote}»`;
+    document.getElementById('modal-story').textContent = data.story;
+    document.getElementById('modal-eureka').textContent = data.eureka;
+    document.getElementById('modal-curiosity').textContent = data.curiosity;
+    document.getElementById('modal-impact').textContent = data.impact;
+
     modal.classList.add('open');
     playChime(783.99);
+}
+
+window.openAstroModal = openAstroModal;
+
+function initAstronomersFilter() {
+    // Las tarjetas ricas ya están renderizadas estáticamente en el HTML
+    // y los botones activan window.openAstroModal
 }
 
 // =============================================

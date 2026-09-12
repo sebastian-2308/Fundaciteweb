@@ -151,6 +151,43 @@
     function nivelDe(part) { return Math.min(NIVEL_MAX, 1 + Math.floor(part.capturas / 3)); }
     function activos(part) { return part.planetas.filter((pl) => pl.estado === 'activo'); }
 
+    // ---------- Vitrina de Trofeos del Sistema Solar ----------
+    const TROFEOS_KEY = 'fundaciteApuntaTrofeos';
+    function cargarTrofeos() {
+        try {
+            const raw = localStorage.getItem(TROFEOS_KEY);
+            return raw ? JSON.parse(raw) : {};
+        } catch (e) { return {}; }
+    }
+    function actualizarTrofeoUI(nombre) {
+        if (!nombre) return;
+        try {
+            const el = document.getElementById('trophy-' + nombre);
+            if (el) {
+                el.classList.add('unlocked');
+                const st = el.querySelector('.trophy-planet-status');
+                if (st) st.textContent = '¡Capturado!';
+            }
+        } catch (e) { /* noop */ }
+    }
+    function registrarTrofeo(nombre) {
+        if (!nombre) return;
+        try {
+            const trofeos = cargarTrofeos();
+            trofeos[nombre] = true;
+            localStorage.setItem(TROFEOS_KEY, JSON.stringify(trofeos));
+        } catch (e) { /* noop */ }
+        actualizarTrofeoUI(nombre);
+    }
+    function sincronizarTrofeosUI() {
+        try {
+            const trofeos = cargarTrofeos();
+            Object.keys(trofeos).forEach(k => {
+                if (trofeos[k]) actualizarTrofeoUI(k);
+            });
+        } catch (e) { /* noop */ }
+    }
+
     // ---------- Fondo: estrellas, nebulosas, fugaces ----------
     function hacerEstrella(capa) {
         return {
@@ -1076,6 +1113,7 @@
                         part.puntos += ganancia;
                         part.capturas += 1;
                         part.galeria[pl.nombre] = true;
+                        registrarTrofeo(pl.nombre);
                         const nidx = escenaDe(nivelDe(part));
                         if (nidx !== escenaIdx) aplicarEscena(nidx, false);
                         const etiqueta = '+' + ganancia + (part.combo > 1 ? '  x' + part.combo : '');
@@ -1110,6 +1148,7 @@
                     if (pl.at >= 1) {
                         part.capturas += 1;
                         part.galeria[pl.nombre] = true;
+                        registrarTrofeo(pl.nombre);
                         const bonus = Math.floor(80 + nivel * 20);
                         part.puntos += bonus;
                         part.flotantes.push(textFlotante('🕳️ ' + pl.nombre + ' atrapado +' + bonus, [200, 150, 255], portalCaptadorX(), portalCaptadorY() - 40));
@@ -1372,45 +1411,76 @@
             }
             return;
         }
-        if (estado === ESTADOS.TIENDA) {
-            const it = tiendaItemPulso();
-            if (it >= 0) {
-                const item = TIENDA[it];
-                const part = p();
-                if (part.puntos >= item.costo && item.aplicar(part)) {
-                    part.puntos -= item.costo;
-                    part.flotantes.push(textFlotante(item.icono + ' comprado ✓', [255, 220, 90], LW / 2, LH * 0.42, 24));
-                    SONIDOS.vida();
-                    sacudida = 2;
-                    estado = ESTADOS.JUGANDO;
-                } else {
-                    flashItem = it; flashT = 0.35;
-                    SONIDOS.tick();
-                }
-            } else {
-                estado = ESTADOS.JUGANDO;
-                SONIDOS.clic();
-            }
-            return;
+    function comprarItem(it) {
+        if (it < 0 || it >= TIENDA.length) return false;
+        const item = TIENDA[it];
+        const part = p();
+        if (!part) return false;
+        if (part.puntos >= item.costo && item.aplicar(part)) {
+            part.puntos -= item.costo;
+            part.flotantes.push(textFlotante(item.icono + ' comprado ✓', [255, 220, 90], LW / 2, LH * 0.42, 24));
+            SONIDOS.vida();
+            sacudida = 2;
+            estado = ESTADOS.JUGANDO;
+            return true;
+        } else {
+            flashItem = it; flashT = 0.35;
+            SONIDOS.tick();
+            return false;
         }
-        if (estado === ESTADOS.FIN) {
-            if (punteroDentro(LW / 2, 442, 150, 27)) {
-                nuevoJuego();
-                estado = ESTADOS.JUGANDO;
-                SONIDOS.clic();
-            }
-        } else if (estado === ESTADOS.PAUSA) {
+    }
+
+    if (estado === ESTADOS.TIENDA) {
+        const it = tiendaItemPulso();
+        if (it >= 0) {
+            comprarItem(it);
+        } else {
             estado = ESTADOS.JUGANDO;
             SONIDOS.clic();
-        } else if (estado === ESTADOS.JUGANDO) {
-            if (botonTiendaClick()) {
-                estado = ESTADOS.TIENDA;
-                SONIDOS.clic();
-            } else if (botonPausaClick()) {
-                estado = ESTADOS.PAUSA;
-                SONIDOS.clic();
-            }
         }
+        return;
+    }
+    if (estado === ESTADOS.FIN) {
+        if (punteroDentro(LW / 2, 442, 150, 27)) {
+            nuevoJuego();
+            estado = ESTADOS.JUGANDO;
+            SONIDOS.clic();
+        }
+    } else if (estado === ESTADOS.PAUSA) {
+        estado = ESTADOS.JUGANDO;
+        SONIDOS.clic();
+    } else if (estado === ESTADOS.JUGANDO) {
+        if (botonTiendaClick()) {
+            estado = ESTADOS.TIENDA;
+            SONIDOS.clic();
+        } else if (botonPausaClick()) {
+            estado = ESTADOS.PAUSA;
+            SONIDOS.clic();
+        }
+    }
+}
+
+    // ---------- Pantalla Completa ----------
+    const fsBtn = document.getElementById('game-fullscreen');
+    function alternarPantallaCompleta() {
+        const wrap = canvas.parentElement || canvas;
+        if (!document.fullscreenElement) {
+            if (wrap.requestFullscreen) {
+                wrap.requestFullscreen().catch(() => {
+                    if (canvas.requestFullscreen) canvas.requestFullscreen();
+                });
+            } else if (canvas.requestFullscreen) {
+                canvas.requestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+        }
+    }
+    if (fsBtn) {
+        fsBtn.addEventListener('click', alternarPantallaCompleta);
+        document.addEventListener('fullscreenchange', () => {
+            fsBtn.textContent = document.fullscreenElement ? '🗗 Salir' : '⛶ Pantalla Completa';
+        });
     }
 
     canvas.addEventListener('pointerdown', (e) => {
@@ -1438,6 +1508,8 @@
         if (k === ' ' || k === 'Enter') {
             if (estado === ESTADOS.INICIO || estado === ESTADOS.FIN) {
                 nuevoJuego(); estado = ESTADOS.JUGANDO; SONIDOS.clic();
+            } else if (estado === ESTADOS.JUGANDO && k === ' ') {
+                puntero.abajo = true;
             }
             e.preventDefault();
         } else if (k === 'r' || k === 'R') {
@@ -1448,6 +1520,30 @@
             } else if (estado === ESTADOS.PAUSA || estado === ESTADOS.TIENDA) {
                 estado = ESTADOS.JUGANDO; SONIDOS.clic();
             }
+        } else if (k === 'f' || k === 'F') {
+            alternarPantallaCompleta();
+        } else if (k === 'm' || k === 'M') {
+            if (soundBtn) soundBtn.click();
+        } else if (k === 't' || k === 'T') {
+            if (estado === ESTADOS.JUGANDO) {
+                estado = ESTADOS.TIENDA; SONIDOS.clic();
+            } else if (estado === ESTADOS.TIENDA) {
+                estado = ESTADOS.JUGANDO; SONIDOS.clic();
+            }
+        } else if (k >= '1' && k <= '6') {
+            const idx = parseInt(k, 10) - 1;
+            if (estado === ESTADOS.TIENDA) {
+                comprarItem(idx);
+            } else if (estado === ESTADOS.JUGANDO) {
+                estado = ESTADOS.TIENDA;
+                comprarItem(idx);
+            }
+        }
+    });
+
+    window.addEventListener('keyup', (e) => {
+        if (e.key === ' ') {
+            puntero.abajo = false;
         }
     });
 
@@ -1473,6 +1569,7 @@
         nebulosas.push({ x: Math.random() * LW, y: Math.random() * LH, r: 130 + Math.random() * 150 });
     }
     aplicarEscena(0, true);
+    sincronizarTrofeosUI();
     nuevoJuego();
     requestAnimationFrame(bucle);
 })();
