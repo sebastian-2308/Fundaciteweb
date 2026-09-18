@@ -51,11 +51,11 @@
     const dificultad = () => DIFICULTADES[difIdx];
 
     const ESCENAS = [
-        { nombre: 'Órbita terrestre', corto: 'ÓRBITA', min: 1, top: '#0a0f26', bot: '#1d3a6e', neb: ['42,80,140', '24,60,120', '60,90,150'], dens: 1.0, ast: 0.4 },
-        { nombre: 'Cinturón de asteroides', corto: 'ASTEROIDES', min: 5, top: '#180f08', bot: '#4a2c14', neb: ['110,72,34', '70,46,22', '140,96,46'], dens: 1.1, ast: 1.6 },
-        { nombre: 'Gigantes helados', corto: 'HELADOS', min: 9, top: '#071326', bot: '#1e5170', neb: ['20,90,120', '26,60,110', '16,110,140'], dens: 1.2, ast: 0.4 },
-        { nombre: 'Afueras del sistema', corto: 'AFUERAS', min: 13, top: '#05050c', bot: '#17223c', neb: ['24,24,64', '10,36,66', '34,28,76'], dens: 0.8, ast: 0.1 },
-        { nombre: 'Corazón galáctico', corto: 'GALAXIA', min: 17, top: '#1a0a20', bot: '#531d6b', neb: ['110,30,130', '60,16,90', '170,90,40'], dens: 1.7, ast: 0.2 }
+        { nombre: 'Órbita terrestre', corto: 'ÓRBITA', min: 1, top: '#0b1913', bot: '#1d4532', neb: ['45,95,74', '38,84,66', '60,112,92'], dens: 1.0, ast: 0.4 },
+        { nombre: 'Cinturón de asteroides', corto: 'ASTEROIDES', min: 5, top: '#101512', bot: '#3c4326', neb: ['96,108,60', '72,94,42', '124,124,70'], dens: 1.1, ast: 1.6 },
+        { nombre: 'Gigantes helados', corto: 'HELADOS', min: 9, top: '#0a1d16', bot: '#1e544a', neb: ['24,102,84', '30,78,92', '22,118,96'], dens: 1.2, ast: 0.4 },
+        { nombre: 'Afueras del sistema', corto: 'AFUERAS', min: 13, top: '#060f0b', bot: '#163026', neb: ['28,52,42', '16,44,34', '34,66,52'], dens: 0.8, ast: 0.1 },
+        { nombre: 'Corazón galáctico', corto: 'GALAXIA', min: 17, top: '#0c1512', bot: '#2a3d32', neb: ['70,96,60', '50,66,44', '120,120,72'], dens: 1.7, ast: 0.2 }
     ];
     let escenaIdx = 0;
     const CAPTA_RAD = 175, CAPTA_EAT = 26;
@@ -63,10 +63,10 @@
     const TIENDA = [
         { icono: '🕳️', color: '#7a4fd0', nombre: 'Agujero captador', costo: 250, desc: 'El próximo planeta que escape queda atrapado en él', aplicar: (part) => { if (part.bhCatch >= 3) return false; part.bhCatch++; return true; } },
         { icono: '🛡️', color: '#3fae6a', nombre: 'Escudo', costo: 300, desc: '+1 vida (máximo 8)', aplicar: (part) => { if (part.vidas >= VIDAS_MAX) return false; part.vidas++; return true; } },
-        { icono: '☄️', color: '#f2a54a', nombre: 'Lluvia de cometas', costo: 180, desc: '3 cometas cruzan el cielo en este momento', aplicar: () => { for (let i = 0; i < 3; i++) { const c = crearCometa(); c.x = -30 - i * 90; c.y = LH * (0.12 + i * 0.26); cometas.push(c); } return true; } },
-        { icono: '⚡', color: '#f2d24a', nombre: 'Turbo-enfoque', costo: 220, desc: 'Enfoque 3× más rápido durante 10 s', aplicar: (part) => { part.turboT = 10; return true; } },
-        { icono: '💫', color: '#5ad0c8', nombre: 'Combo estable', costo: 220, desc: 'Tu combo no decae durante 20 s', aplicar: (part) => { part.comboEstT = 20; return true; } },
-        { icono: '🔭', color: '#4a9bd0', nombre: 'Telescopio', costo: 320, desc: 'El planeta en apuros se enfoca solo por 12 s', aplicar: (part) => { part.autoT = 12; return true; } }
+        { icono: '☄️', color: '#cc9a5c', nombre: 'Lluvia de cometas', costo: 180, desc: '3 cometas cruzan el cielo en este momento', aplicar: () => { for (let i = 0; i < 3; i++) { const c = crearCometa(); c.x = -30 - i * 90; c.y = LH * (0.12 + i * 0.26); cometas.push(c); } return true; } },
+        { icono: '⚡', color: '#cfc06a', nombre: 'Turbo-enfoque', costo: 220, desc: 'Enfoque 3× más rápido durante 10 s', aplicar: (part) => { part.turboT = 10; return true; } },
+        { icono: '💫', color: '#69c0ab', nombre: 'Combo estable', costo: 220, desc: 'Tu combo no decae durante 20 s', aplicar: (part) => { part.comboEstT = 20; return true; } },
+        { icono: '🔭', color: '#4f9a86', nombre: 'Telescopio', costo: 320, desc: 'El planeta en apuros se enfoca solo por 12 s', aplicar: (part) => { part.autoT = 12; return true; } }
     ];
 
     // ---------- Sonido sintetizado (WebAudio) ----------
@@ -140,7 +140,7 @@
             puntos: 0, vidas: VIDAS_INI, capturas: 0, planetas: [],
             espera: 0.5, combo: 0, comboT: 0, flotantes: [],
             banner: '✦ Captura planetas, destruye naves y caza cometas ✦',
-            bannerT: 2.8, bannerColor: [255, 220, 90],
+            bannerT: 2.8, bannerColor: [139, 176, 116],
             galeria: PLANETAS.reduce((m, p) => (m[p.nombre] = false, m), {}),
             bhCatch: 0, turboT: 0, comboEstT: 0, autoT: 0
         };
@@ -316,7 +316,7 @@
         for (let i = 0; i < Math.round(esc.ast * 26); i++) asteroides.push(crearAsteroide());
         if (!inicial && partida) {
             partida.banner = '✦ Escena: ' + esc.nombre.toUpperCase() + ' ✦';
-            partida.bannerColor = [255, 220, 90];
+            partida.bannerColor = [139, 176, 116];
             partida.bannerT = 2.0;
         }
     }
@@ -541,7 +541,7 @@
             const my = y + Math.sin(pl.angOrbit) * r * 1.5;
             ctx.fillStyle = 'rgb(208,208,214)';
             ctx.beginPath(); ctx.arc(mx, my, 4, 0, TAU); ctx.fill();
-            ctx.strokeStyle = '#05070f'; ctx.lineWidth = 1;
+            ctx.strokeStyle = '#0c1811'; ctx.lineWidth = 1;
             ctx.stroke();
         }
         ctx.fillStyle = 'rgba(255,255,255,0.9)';
@@ -583,9 +583,9 @@
                 }
             }
         };
-        tragar(cometas, 25 + nivel * 8, 'cometa', [210, 240, 255], '☄️');
+        tragar(cometas, 25 + nivel * 8, 'cometa', [205, 235, 215], '☄️');
         tragar(naves, 40 + nivel * 15, 'nave', [255, 160, 120], '🛸');
-        tragar(agujeros, 80 + nivel * 25, 'colapso', [255, 220, 90], '🕳');
+        tragar(agujeros, 80 + nivel * 25, 'colapso', [139, 176, 116], '🕳');
     }
     function portalCaptador(part) {
         const enUso = part.bhCatch > 0 || part.planetas.some((pl) => pl.estado === 'atraido');
@@ -598,7 +598,7 @@
         g.addColorStop(1, 'rgba(210,160,255,0)');
         ctx.fillStyle = g;
         ctx.beginPath(); ctx.arc(px, py, 68, 0, TAU); ctx.fill();
-        ctx.strokeStyle = 'rgba(255,220,90,0.85)';
+        ctx.strokeStyle = 'rgba(139,176,116,0.85)';
         ctx.lineWidth = 3;
         ctx.setLineDash([10, 8]);
         ctx.beginPath(); ctx.arc(px, py, 30 * pulso, 0, TAU); ctx.stroke();
@@ -611,14 +611,14 @@
             ctx.setLineDash([]);
         }
         const h = ctx.createRadialGradient(px - 8, py - 8, 2, px, py, 24 * pulso);
-        h.addColorStop(0, '#000'); h.addColorStop(0.7, '#13091f'); h.addColorStop(1, '#3a2a5a');
+        h.addColorStop(0, '#000'); h.addColorStop(0.7, '#0d1a13'); h.addColorStop(1, '#2b4636');
         ctx.fillStyle = h;
         ctx.beginPath(); ctx.arc(px, py, 22 * pulso, 0, TAU); ctx.fill();
-        ctx.strokeStyle = 'rgba(255,200,120,0.85)';
+        ctx.strokeStyle = 'rgba(139,176,116,0.85)';
         ctx.lineWidth = 4; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.arc(px, py, 15 * pulso, tiempo * 2.6, tiempo * 2.6 + 4.4); ctx.stroke();
         ctx.restore();
-        if (part.bhCatch > 0) texto('CAPTURADOR ×' + part.bhCatch, px, py - 58, 14, [255, 220, 90]);
+        if (part.bhCatch > 0) texto('CAPTURADOR ×' + part.bhCatch, px, py - 58, 14, [139, 176, 116]);
     }
     function portalCaptadorX() { return LW / 2; }
     function portalCaptadorY() { return LH - 108; }
@@ -640,7 +640,7 @@
     // ---------- Mira del telescopio ----------
     function dibujarMira() {
         const { x, y } = puntero;
-        const color = puntero.abajo ? [120, 255, 140] : [90, 200, 255];
+        const color = puntero.abajo ? [115, 190, 130] : [90, 155, 128];
         ctx.strokeStyle = col(color, 0.95);
         ctx.fillStyle = col(color, 0.95);
         ctx.lineWidth = 2;
@@ -665,7 +665,7 @@
             const res = resaltar ? resaltar.has(p.nombre) : false;
             ctx.fillStyle = capt ? col(p.color, 1) : 'rgb(70,72,84)';
             ctx.beginPath(); ctx.arc(x, y, 22, 0, TAU); ctx.fill();
-            ctx.strokeStyle = res ? [255, 220, 90] : '#05070f';
+            ctx.strokeStyle = res ? [139, 176, 116] : '#0c1811';
             ctx.lineWidth = res ? 3 : 2;
             ctx.stroke();
             ctx.fillStyle = 'rgba(255,255,255,0.8)';
@@ -700,7 +700,7 @@
         ctx.textAlign = centro === false ? 'left' : 'center';
         ctx.lineWidth = Math.max(1, tam * 0.08);
         ctx.lineJoin = 'round';
-        ctx.strokeStyle = '#05070f';
+        ctx.strokeStyle = '#0c1811';
         ctx.strokeText(t, x, y);
         ctx.fillStyle = col(color || [255, 255, 255], 1);
         ctx.fillText(t, x, y);
@@ -772,7 +772,7 @@
         fil2.forEach((t, i) => ctx.fillText(t, LW / 2 + (i - 1) * 300, 432));
 
         const hover = tablaPlanetas(LH - 60, partida.galeria, null);
-        if (hover) texto(hover, LW / 2, LH - 100, 16, [255, 220, 90]);
+        if (hover) texto(hover, LW / 2, LH - 100, 16, [139, 176, 116]);
         texto('Álbum de planetas — captúralos todos', LW / 2, LH - 16, 15, [150, 160, 180]);
     }
     function recordIdx(i) {
@@ -816,7 +816,7 @@
         texto('NIVEL ' + nivel + '   ·   ÁLBUM ' + capturasTotal(part.galeria) + '/8', 70, 54, 18, [200, 205, 220], false);
         const m = 1 + (part.comboT > 0 ? part.combo - 1 : 0) * 0.5;
         if (part.combo > 1 && part.comboT > 0) {
-            texto('COMBO x' + m.toFixed(1), LW / 2, 26, 24, [255, 220, 90]);
+            texto('COMBO x' + m.toFixed(1), LW / 2, 26, 24, [139, 176, 116]);
         }
         const efectos = [];
         if (part.turboT > 0) efectos.push('⚡' + Math.ceil(part.turboT) + 's');
@@ -827,12 +827,12 @@
         ctx.textAlign = 'right';
         ctx.font = '24px "Segoe UI", Arial, sans-serif';
         ctx.fillStyle = 'rgb(255,120,120)';
-        ctx.strokeStyle = '#05070f'; ctx.lineWidth = 3;
+        ctx.strokeStyle = '#0c1811'; ctx.lineWidth = 3;
         ctx.strokeText(vidas, LW - 20, 24);
         ctx.fillText(vidas, LW - 20, 24);
         ctx.textAlign = 'right';
         ctx.font = '20px "Segoe UI", Arial, sans-serif';
-        ctx.fillStyle = 'rgb(120,255,140)';
+        ctx.fillStyle = 'rgb(110,185,130)';
         const enOrbita = activos(part).length;
         let hudDerecha = 'óRB ' + enOrbita + ' · 🛸 ' + naves.length + ' · 🕳 ' + agujeros.length;
         if (part.bhCatch > 0) hudDerecha += ' · ' + part.bhCatch + ' en reserva';
@@ -870,7 +870,7 @@
         const part = p();
         const resaltar = new Set(activos(part).map((pl) => pl.nombre));
         const hover = tablaPlanetas(LH - 40, part.galeria, resaltar);
-        if (hover) texto(hover, LW / 2, LH - 40 - 48, 18, [255, 220, 90]);
+        if (hover) texto(hover, LW / 2, LH - 40 - 48, 18, [139, 176, 116]);
         const n = activos(part).length;
         texto(capturasTotal(part.galeria) + '/8 planetas del álbum  ·  apunta a ' + n + ' planeta' + (n !== 1 ? 's' : ''),
             LW / 2, LH - 4, 15, [170, 180, 200]);
@@ -895,11 +895,11 @@
         texto('FIN DE LA OBSERVACIÓN', LW / 2, 105, 50, [255, 160, 160]);
         texto('Puntaje final: ' + part.puntos, LW / 2, 175, 38, [255, 255, 255]);
         const nuevo = part.puntos >= record && part.puntos > 0;
-        if (nuevo) texto('★ NUEVO RÉCORD ★', LW / 2, 220, 28, [255, 220, 90]);
+        if (nuevo) texto('★ NUEVO RÉCORD ★', LW / 2, 220, 28, [139, 176, 116]);
         else texto('Mejor puntaje: ' + record, LW / 2, 220, 26, [230, 200, 120]);
         texto('Álbum completado: ' + capturasTotal(part.galeria) + '/8', LW / 2, 268, 24, [200, 205, 220]);
         const hover = tablaPlanetas(360, part.galeria, null);
-        if (hover) texto(hover, LW / 2, 322, 18, [255, 220, 90]);
+        if (hover) texto(hover, LW / 2, 322, 18, [139, 176, 116]);
         ctx.textAlign = 'center';
         ctx.fillStyle = 'rgb(190,200,215)';
         ctx.font = '18px "Segoe UI", Arial, sans-serif';
@@ -1117,16 +1117,16 @@
                         const nidx = escenaDe(nivelDe(part));
                         if (nidx !== escenaIdx) aplicarEscena(nidx, false);
                         const etiqueta = '+' + ganancia + (part.combo > 1 ? '  x' + part.combo : '');
-                        part.flotantes.push(textFlotante(etiqueta, [255, 220, 90], pl.x, pl.y - pl.radio - 6));
+                        part.flotantes.push(textFlotante(etiqueta, [139, 176, 116], pl.x, pl.y - pl.radio - 6));
                         part.flotantes.push(textFlotante(pl.nombre + ': ' + pl.dato, [190, 220, 255], pl.x, pl.y + pl.radio + 16, 20));
                         part.banner = '★  ' + pl.nombre.toUpperCase() + ' CAPTURADO  ★';
-                        part.bannerColor = [255, 220, 90];
+                        part.bannerColor = [139, 176, 116];
                         part.bannerT = 1.6;
                         SONIDOS.captura(part.combo);
                         sacudida = 6;
                         if (part.puntos >= VIDA_PTS && part.vidas < VIDAS_MAX) {
                             part.vidas += 1;
-                            part.flotantes.push(textFlotante('+1 VIDA', [120, 255, 140], LW / 2, LH * 0.4));
+                            part.flotantes.push(textFlotante('+1 VIDA', [110, 185, 130], LW / 2, LH * 0.4));
                             SONIDOS.vida();
                         }
                         pl.estado = 'capturado';
@@ -1249,7 +1249,7 @@
                 plEtiqueta(pl);
                 if (pl.estado === 'activo') {
                     const dentro = Math.hypot(pl.x - puntero.x, pl.y - puntero.y) <= RADIO_MIRA + pl.radio * 0.5;
-                    const color = dentro && puntero.abajo ? [120, 255, 140] : [255, 220, 90];
+                    const color = dentro && puntero.abajo ? [110, 185, 130] : [139, 176, 116];
                     plAnilloFoco(pl, color);
                     if (dentro) apuntado = pl;
                     if (pl === autoTgtActual) {
@@ -1266,7 +1266,7 @@
                         ctx.setLineDash([6, 6]);
                         ctx.beginPath(); ctx.arc(pl.x, pl.y, pl.radio + 17 + Math.sin(pl.pulso * 3) * 2, 0, TAU); ctx.stroke();
                         ctx.setLineDash([]);
-                        texto('🕳', pl.x, pl.y - pl.radio - 52, 17, [255, 220, 90]);
+                        texto('🕳', pl.x, pl.y - pl.radio - 52, 17, [139, 176, 116]);
                     }
                 }
             }
@@ -1418,7 +1418,7 @@
         if (!part) return false;
         if (part.puntos >= item.costo && item.aplicar(part)) {
             part.puntos -= item.costo;
-            part.flotantes.push(textFlotante(item.icono + ' comprado ✓', [255, 220, 90], LW / 2, LH * 0.42, 24));
+            part.flotantes.push(textFlotante(item.icono + ' comprado ✓', [139, 176, 116], LW / 2, LH * 0.42, 24));
             SONIDOS.vida();
             sacudida = 2;
             estado = ESTADOS.JUGANDO;
