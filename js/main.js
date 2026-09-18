@@ -32,8 +32,8 @@ function initNav() {
 function initTheme() {
     const THEMES = ['default', 'dark', 'aurora'];
     const THEME_NAMES = {
-        'default': '☀️ Pergamino',
-        'dark': '🌌 Cosmos',
+        'default': '🌲 Bosque',
+        'dark': '🌑 Noche',
         'aurora': '🟢 Aurora'
     };
 

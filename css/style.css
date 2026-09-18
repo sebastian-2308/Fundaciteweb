@@ -1,69 +1,70 @@
 /* ============================================
    ASTRONOMÍAS DEL MUNDO · FUNDACITE CARACAS
-   Tema Aurora Boreal (mate): editorial claro + cielo nocturno teñido de esmeralda.
+   Tema Bosque Nocturno Esmeralda (mate, oscuro).
    ============================================ */
 
 :root {
-    --paper: #edf2e9;
-    --paper-2: #dde6d6;
-    --card: #f6f9f3;
-    --ink: #2a3630;
-    --ink-soft: #4c5e53;
-    --muted: #7e8d83;
-    --line: #c8d5c4;
-    --gold: #3f6d52;
-    --gold-soft: #55896a;
-    --red: #3f7d56;
-    --blue: #4f8a73;
-    --night: #0d1a13;
-    --night-2: #15271d;
-    --night-line: #2b4636;
+    --paper: #091109;
+    --paper-2: #0e1a12;
+    --card: #112019;
+    --ink: #e9f6ec;
+    --ink-soft: #a6c3b0;
+    --muted: #7b9888;
+    --line: #264238;
+    --gold: #5fbd86;
+    --gold-soft: #86dba6;
+    --red: #2aa76f;
+    --blue: #2db5a2;
+    --night: #040a07;
+    --night-2: #08130d;
+    --night-line: #1c3a2b;
     --white: #ffffff;
     --serif: Georgia, "Times New Roman", serif;
     --sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     --max: 1180px;
     --radius: 16px;
-    --shadow: 0 10px 24px rgba(42, 54, 48, 0.10);
-    --header-bg: rgba(237, 242, 233, 0.92);
+    --shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+    --header-bg: rgba(9, 17, 9, 0.9);
 }
 
 [data-theme="dark"] {
-    --paper: #0b1410;
-    --paper-2: #111d17;
-    --card: #172720;
-    --ink: #d9ece0;
-    --ink-soft: #8fae9c;
-    --muted: #667e71;
-    --line: #284233;
-    --gold: #79b392;
-    --gold-soft: #9dc7ad;
-    --red: #6bb88e;
-    --blue: #69c0ab;
-    --night: #060d09;
-    --night-2: #0c1711;
-    --night-line: #284233;
-    --shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
-    --header-bg: rgba(11, 20, 16, 0.92);
+    /* Variante más profunda y desaturada de la noche esmeralda */
+    --paper: #070d0a;
+    --paper-2: #0c1510;
+    --card: #101a14;
+    --ink: #dcefe1;
+    --ink-soft: #99b9a5;
+    --muted: #6f8d7c;
+    --line: #223832;
+    --gold: #55ae7c;
+    --gold-soft: #74cd97;
+    --red: #289a68;
+    --blue: #2aa795;
+    --night: #030806;
+    --night-2: #070f0b;
+    --night-line: #193228;
+    --shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+    --header-bg: rgba(7, 13, 10, 0.92);
 }
 
 [data-theme="aurora"] {
-    /* Modo Aurora Boreal: visión verde mate del observatorio (luz nocturna esmeralda) */
-    --paper: #0c1711;
-    --paper-2: #12211a;
-    --card: #14261d;
-    --ink: #a8dab8;
-    --ink-soft: #62967a;
-    --muted: #4e7a62;
-    --line: #274233;
-    --gold: #7fc69b;
-    --gold-soft: #a3dcb8;
-    --red: #5cb585;
-    --blue: #5cc1ae;
-    --night: #060c08;
-    --night-2: #0a1510;
-    --night-line: #234134;
-    --shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
-    --header-bg: rgba(12, 23, 17, 0.94);
+    /* Modo Aurora Boreal: visión verde del observatorio, más luminosa */
+    --paper: #0b1512;
+    --paper-2: #112019;
+    --card: #15261d;
+    --ink: #b5e3c4;
+    --ink-soft: #6ca284;
+    --muted: #528169;
+    --line: #2a4a3b;
+    --gold: #71c894;
+    --gold-soft: #94e5b2;
+    --red: #46b97e;
+    --blue: #45c4b0;
+    --night: #050b08;
+    --night-2: #091510;
+    --night-line: #224033;
+    --shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+    --header-bg: rgba(11, 21, 18, 0.93);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -100,8 +101,8 @@ a { color: inherit; }
     position: absolute;
     left: -9999px;
     top: 0;
-    background: var(--ink);
-    color: #fff;
+    background: var(--gold);
+    color: var(--night);
     padding: 10px 16px;
     z-index: 100;
 }
@@ -218,15 +219,15 @@ a { color: inherit; }
     inset: 0;
     background-image:
         radial-gradient(1.4px 1.4px at 12% 22%, rgba(255,255,255,0.85) 50%, transparent 51%),
-        radial-gradient(1.2px 1.2px at 34% 8%, rgba(85,137,106,0.9) 50%, transparent 51%),
+        radial-gradient(1.2px 1.2px at 34% 8%, rgba(122,190,148,0.9) 50%, transparent 51%),
         radial-gradient(1.4px 1.4px at 52% 18%, rgba(255,255,255,0.7) 50%, transparent 51%),
         radial-gradient(1.1px 1.1px at 64% 6%, rgba(255,255,255,0.8) 50%, transparent 51%),
         radial-gradient(1.5px 1.5px at 71% 24%, rgba(255,255,255,0.75) 50%, transparent 51%),
-        radial-gradient(1.2px 1.2px at 82% 12%, rgba(85,137,106,0.85) 50%, transparent 51%),
+        radial-gradient(1.2px 1.2px at 82% 12%, rgba(122,190,148,0.85) 50%, transparent 51%),
         radial-gradient(1.3px 1.3px at 8% 52%, rgba(255,255,255,0.6) 50%, transparent 51%),
         radial-gradient(1.1px 1.1px at 22% 66%, rgba(255,255,255,0.5) 50%, transparent 51%),
         radial-gradient(1.4px 1.4px at 44% 44%, rgba(255,255,255,0.55) 50%, transparent 51%),
-        radial-gradient(1.2px 1.2px at 58% 58%, rgba(85,137,106,0.6) 50%, transparent 51%),
+        radial-gradient(1.2px 1.2px at 58% 58%, rgba(122,190,148,0.6) 50%, transparent 51%),
         radial-gradient(1.3px 1.3px at 76% 68%, rgba(255,255,255,0.5) 50%, transparent 51%),
         radial-gradient(1.5px 1.5px at 90% 44%, rgba(255,255,255,0.6) 50%, transparent 51%),
         radial-gradient(1.2px 1.2px at 30% 84%, rgba(255,255,255,0.45) 50%, transparent 51%),
@@ -252,7 +253,7 @@ a { color: inherit; }
     width: 54px;
     height: 54px;
     border-radius: 50%;
-    border: 2px solid rgba(85, 137, 106, 0.7);
+    border: 2px solid rgba(122, 190, 148, 0.7);
     display: grid;
     place-items: center;
     font-size: 24px;
@@ -311,10 +312,10 @@ a { color: inherit; }
 .btn:hover { transform: translateY(-2px); }
 
 .btn-primary { background: var(--red); color: #fff; }
-.btn-primary:hover { box-shadow: 0 8px 18px rgba(63, 125, 86, 0.4); }
+.btn-primary:hover { box-shadow: 0 8px 18px rgba(42, 167, 111, 0.4); }
 
 .btn-gold { background: var(--gold-soft); color: var(--night); }
-.btn-gold:hover { box-shadow: 0 8px 18px rgba(85, 137, 106, 0.4); }
+.btn-gold:hover { box-shadow: 0 8px 18px rgba(122, 190, 148, 0.4); }
 
 .btn-ghost {
     background: transparent;
@@ -851,7 +852,7 @@ a { color: inherit; }
     height: 100%;
     object-fit: contain;
     border-radius: 0;
-    box-shadow: 0 0 60px rgba(85, 137, 106, 0.3);
+    box-shadow: 0 0 60px rgba(122, 190, 148, 0.3);
 }
 
 /* ---------- Aula Virtual (aula.html) ---------- */
@@ -930,7 +931,7 @@ a { color: inherit; }
     padding: 4px 12px;
 }
 
-.unidad-status.done { background: #e4f3e8; color: #1c7a3d; }
+.unidad-status.done { background: #12351f; color: #7ed6a0; }
 
 .unidad .lectura { color: var(--ink-soft); font-size: 15px; line-height: 1.65; margin-bottom: 18px; }
 
@@ -962,13 +963,13 @@ a { color: inherit; }
 
 .opcion input { accent-color: var(--blue); }
 
-.opcion.ok { background: #e4f3e8; border-color: #2f9a56; color: #14522b; }
-.opcion.mal { background: #fbe9f0; border-color: #ce3f7b; color: #7c2443; }
+.opcion.ok { background: #12351f; border-color: #2a9a56; color: #b9f0cd; }
+.opcion.mal { background: #3a1522; border-color: #d4588f; color: #ffc2d4; }
 .opcion.des { opacity: 0.5; }
 
 .pregunta .retro { font-size: 13px; color: var(--ink-soft); border-top: 1px dashed var(--line); margin-top: 10px; padding-top: 8px; }
 
-.pregunta .retro.ok { color: #1c7a3d; }
+.pregunta .retro.ok { color: #7ed6a0; }
 
 .unidad-acciones { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 16px; }
 
@@ -1032,7 +1033,7 @@ a { color: inherit; }
     cursor: pointer;
 }
 
-.btn-cert:disabled { background: #b7cdbc; cursor: not-allowed; }
+.btn-cert:disabled { background: #3d5347; cursor: not-allowed; }
 
 /* ---------- Responsive ---------- */
 
@@ -1119,7 +1120,7 @@ a { color: inherit; }
     background: var(--gold);
     color: #fff;
     border-color: var(--gold);
-    box-shadow: 0 0 12px rgba(85, 137, 106, 0.45);
+    box-shadow: 0 0 12px rgba(122, 190, 148, 0.45);
 }
 
 /* Canvas de estrellas en Hero */
@@ -1175,7 +1176,7 @@ a { color: inherit; }
 
 .astro-rich-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 36px rgba(42, 54, 48, 0.16);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
     border-color: var(--gold-soft);
 }
 
@@ -1220,12 +1221,12 @@ a { color: inherit; }
     text-transform: uppercase;
     padding: 4px 10px;
     border-radius: 999px;
-    border: 1px solid rgba(85, 137, 106, 0.5);
+    border: 1px solid rgba(122, 190, 148, 0.5);
 }
 
 .astro-years-badge {
-    background: rgba(255, 255, 255, 0.92);
-    color: var(--ink);
+    background: rgba(233, 246, 236, 0.92);
+    color: #14241c;
     font-size: 11.5px;
     font-weight: 700;
     padding: 4px 10px;
@@ -1367,7 +1368,7 @@ a { color: inherit; }
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 0 12px rgba(85, 137, 106, 0.5);
+    box-shadow: 0 0 12px rgba(122, 190, 148, 0.5);
     transition: transform 0.15s ease, background 0.15s ease;
 }
 
@@ -1472,7 +1473,7 @@ a { color: inherit; }
 
 .trophy-planet-item.unlocked {
     border-color: var(--gold);
-    box-shadow: 0 4px 12px rgba(85, 137, 106, 0.25);
+    box-shadow: 0 4px 12px rgba(122, 190, 148, 0.25);
     background: var(--card);
 }
 
@@ -1635,7 +1636,7 @@ a { color: inherit; }
 .moon-svg-disc {
     width: 68px;
     height: 68px;
-    filter: drop-shadow(0 0 10px rgba(85, 137, 106, 0.4));
+    filter: drop-shadow(0 0 10px rgba(122, 190, 148, 0.4));
 }
 
 .sidereal-clock-face {
@@ -1789,7 +1790,7 @@ a { color: inherit; }
 .aula-tab.active {
     background: var(--red);
     color: #fff;
-    box-shadow: 0 4px 12px rgba(63, 125, 86, 0.35);
+    box-shadow: 0 4px 12px rgba(42, 167, 111, 0.35);
 }
 
 .aula-panel {
