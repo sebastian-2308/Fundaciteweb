@@ -27,14 +27,14 @@ function initNav() {
 }
 
 // =============================================
-// SELECTOR DE TEMAS (PERGAMINO / COSMOS / LUZ ROJA)
+// SELECTOR DE TEMAS (PERGAMINO / COSMOS / AURORA)
 // =============================================
 function initTheme() {
-    const THEMES = ['default', 'dark', 'redshift'];
+    const THEMES = ['default', 'dark', 'aurora'];
     const THEME_NAMES = {
         'default': '☀️ Pergamino',
         'dark': '🌌 Cosmos',
-        'redshift': '🔴 Observatorio'
+        'aurora': '🟢 Aurora'
     };
 
     let saved = localStorage.getItem('fundacite_theme') || 'default';
@@ -361,7 +361,7 @@ function initHeroStars() {
                 radius: Math.random() * 1.5 + 0.5,
                 alpha: Math.random() * 0.8 + 0.2,
                 twinkleSpeed: (Math.random() * 0.02 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
-                color: Math.random() > 0.3 ? '#ffffff' : (Math.random() > 0.5 ? '#ffd57d' : '#99c3ff')
+                color: Math.random() > 0.3 ? '#ffffff' : (Math.random() > 0.5 ? '#8dffd6' : '#a8ffbf')
             });
         }
     }
@@ -427,7 +427,7 @@ function initHeroStars() {
                             ctx.beginPath();
                             ctx.moveTo(s1.x, s1.y);
                             ctx.lineTo(s2.x, s2.y);
-                            ctx.strokeStyle = '#c9a54e';
+                            ctx.strokeStyle = '#3cb875';
                             ctx.globalAlpha = lineAlpha;
                             ctx.lineWidth = 0.85;
                             ctx.stroke();
@@ -677,8 +677,8 @@ function renderMoonSVG(fraction, illumination) {
     const isWaxing = fraction < 0.5;
     return `
         <svg class="moon-svg-disc" viewBox="-50 -50 100 100" aria-label="${illumination}% iluminada">
-            <circle cx="0" cy="0" r="45" fill="#1b2238" stroke="#a07b21" stroke-width="2"/>
-            <path d="M 0,-45 A 45,45 0 0,${isWaxing ? 1 : 0} 0,45 A ${Math.abs(Math.cos(fraction * Math.PI * 2)) * 45},45 0 0,${fraction < 0.25 || fraction > 0.75 ? 0 : 1} 0,-45" fill="#ffd977"/>
+            <circle cx="0" cy="0" r="45" fill="#14241c" stroke="#2e8f59" stroke-width="2"/>
+            <path d="M 0,-45 A 45,45 0 0,${isWaxing ? 1 : 0} 0,45 A ${Math.abs(Math.cos(fraction * Math.PI * 2)) * 45},45 0 0,${fraction < 0.25 || fraction > 0.75 ? 0 : 1} 0,-45" fill="#6df0ac"/>
         </svg>
     `;
 }
@@ -840,7 +840,7 @@ function initSolarOrrery() {
 
             ctx.beginPath();
             ctx.arc(cx, cy, orbitR, 0, Math.PI * 2);
-            ctx.strokeStyle = isSelected ? 'rgba(201, 165, 78, 0.75)' : 'rgba(255, 255, 255, 0.1)';
+            ctx.strokeStyle = isSelected ? 'rgba(60, 184, 117, 0.75)' : 'rgba(255, 255, 255, 0.1)';
             ctx.lineWidth = isSelected ? 1.5 : 0.8;
             ctx.stroke();
 
@@ -851,7 +851,7 @@ function initSolarOrrery() {
             if (isSelected) {
                 ctx.beginPath();
                 ctx.arc(px, py, p.radius + 6, 0, Math.PI * 2);
-                ctx.strokeStyle = '#c9a54e';
+                ctx.strokeStyle = '#3cb875';
                 ctx.lineWidth = 1.5;
                 ctx.stroke();
             }
@@ -873,7 +873,7 @@ function initSolarOrrery() {
             ctx.shadowBlur = 0;
 
             ctx.font = '10.5px system-ui';
-            ctx.fillStyle = isSelected ? '#ffd577' : 'rgba(255, 255, 255, 0.65)';
+            ctx.fillStyle = isSelected ? '#6df0ac' : 'rgba(255, 255, 255, 0.65)';
             ctx.fillText(p.name, px + p.radius + 4, py + 3);
         });
 
