@@ -587,7 +587,7 @@
         };
     }
     function dibujarPlaneta(pl) {
-        const { x, y, r } = pl, d = pl.datos;
+        const { x, y, radio: r } = pl, d = pl.datos;
         const fugando = pl.estado === 'escapado';
         if (fugando) ctx.globalAlpha = Math.max(0, Math.min(1, (pl.fugaT || 0) * 0.85));
         // Resplandor exterior
