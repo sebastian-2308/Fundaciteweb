@@ -109,7 +109,7 @@
     if (soundBtn) {
         soundBtn.addEventListener('click', () => {
             SND = !SND;
-            soundBtn.textContent = SND ? '🔊' : '🔇';
+            soundBtn.textContent = SND ? '♪ Sonido' : '✕ Mudo';
             soundBtn.setAttribute('aria-label', SND ? 'Silenciar sonido' : 'Activar sonido');
             if (SND) acSafe();
         });
@@ -1479,7 +1479,7 @@
     if (fsBtn) {
         fsBtn.addEventListener('click', alternarPantallaCompleta);
         document.addEventListener('fullscreenchange', () => {
-            fsBtn.textContent = document.fullscreenElement ? '🗗 Salir' : '⛶ Pantalla Completa';
+            fsBtn.textContent = document.fullscreenElement ? 'Salir de pantalla completa' : 'Pantalla Completa';
         });
     }
 

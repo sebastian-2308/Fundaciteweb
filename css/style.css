@@ -74,13 +74,9 @@ html { scroll-behavior: smooth; }
 
 body {
     font-family: var(--sans);
-    background:
-        radial-gradient(1100px 520px at 85% -10%, rgba(45, 181, 162, 0.16), transparent 60%),
-        radial-gradient(1000px 620px at -12% 22%, rgba(42, 167, 111, 0.14), transparent 60%),
-        radial-gradient(900px 600px at 50% 112%, rgba(95, 189, 134, 0.10), transparent 60%),
-        var(--paper);
+    background: var(--paper);
     color: var(--ink);
-    line-height: 1.6;
+    line-height: 1.65;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
 }
@@ -2466,4 +2462,673 @@ a { color: inherit; }
 
 @media (max-width: 900px) {
     .juego-canvas-wrap { height: auto; }
+}
+
+/* =============================================
+   LÍNEA INSTITUCIONAL MINISTERIAL
+   Cerro verde oficial · dorado · banda tricolor
+   ============================================= */
+
+::selection { background: rgba(232, 184, 75, 0.28); color: #fff; }
+
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: #071710; }
+::-webkit-scrollbar-thumb { background: #2c4a38; border-radius: 8px; border: 2px solid #071710; }
+::-webkit-scrollbar-thumb:hover { background: #3a5f46; }
+
+/* ---------- Mástil oficial ---------- */
+.site-header {
+    background: rgba(6, 16, 11, 0.97) !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: none;
+}
+
+.site-header::after {
+    content: "";
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg,
+        #e8b84b 0%, #e8b84b 33.333%,
+        #2e6fb0 33.334%, #2e6fb0 66.666%,
+        #c34a3c 66.667%, #c34a3c 100%);
+}
+
+.brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    background: linear-gradient(180deg, #175c35, #0f3d24);
+    border: 1px solid rgba(232, 184, 75, 0.55);
+    color: #e8b84b;
+    font-size: 20px;
+    font-family: var(--serif);
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: none;
+    transition: border-color 0.2s ease;
+}
+
+.brand:hover .brand-mark { border-color: #e8b84b; }
+
+.brand-name {
+    font-family: var(--serif);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--ink);
+}
+
+.brand-sub {
+    font-family: var(--sans);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.main-nav a {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(245, 241, 230, 0.78);
+}
+
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 1px;
+    height: 2px;
+    background: #e8b84b;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+}
+
+.main-nav a:hover { color: #fff; }
+.main-nav a:hover::after { transform: scaleX(1); }
+
+.main-nav .nav-cta {
+    background: #17723c;
+    color: #fff;
+    border: 1px solid rgba(232, 184, 75, 0.4);
+    box-shadow: none;
+    border-radius: 6px;
+}
+
+.main-nav .nav-cta:hover {
+    background: #1b8547;
+    color: #fff;
+    transform: none;
+}
+
+.action-pill-btn {
+    background: transparent !important;
+    border: 1px solid rgba(232, 184, 75, 0.4);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 6px;
+}
+
+.action-pill-btn:hover { border-color: #e8b84b; color: var(--ink); }
+
+/* ---------- Hero institucional ---------- */
+.hero {
+    background: linear-gradient(180deg, #06120c 0%, #0a1f14 100%);
+    padding: 88px 24px 76px;
+    border-bottom: none;
+}
+
+.hero-inner { z-index: 2; }
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #e8b84b;
+}
+
+.hero-eyebrow::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: linear-gradient(135deg, #e8b84b 0 33.33%, #2e6fb0 33.34% 66.66%, #c34a3c 66.67%);
+}
+
+.hero h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(36px, 4.8vw, 56px);
+    letter-spacing: -0.015em;
+    color: #fff;
+    text-wrap: balance;
+}
+
+.hero h1 em {
+    color: #e8b84b;
+    font-style: italic;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+.hero p.lead {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(245, 241, 230, 0.8);
+    max-width: 780px;
+}
+
+.hero-stats div {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0;
+    color: rgba(245, 241, 230, 0.72);
+    font-family: var(--sans);
+    font-size: 14px;
+}
+
+.hero-stats div + div { border-left: 1px solid rgba(232, 184, 75, 0.35) !important; padding-left: 22px; }
+
+.hero-stats b { font-family: var(--serif); font-size: 26px; color: #e8b84b; }
+
+/* ---------- Botones planos oficiales ---------- */
+.btn {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 8px;
+    padding: 14px 26px;
+    box-shadow: none;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary { background: #17723c; color: #fff; border: 1px solid transparent; }
+.btn-primary:hover { background: #1b8547; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+
+.btn-gold, .btn-cert, .btn-check-gold {
+    background: transparent;
+    color: #e8b84b;
+    border: 1.5px solid rgba(232, 184, 75, 0.55);
+    box-shadow: none;
+}
+
+.btn-gold:hover, .btn-cert:hover {
+    background: rgba(232, 184, 75, 0.12);
+    color: #e8b84b;
+    border-color: #e8b84b;
+    box-shadow: none;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+
+/* ---------- Cabeceras formales ---------- */
+.section-eyebrow {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #d9a930;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-eyebrow::before,
+.section-eyebrow::after {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: rgba(232, 184, 75, 0.55);
+}
+
+.section-head h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.15;
+}
+
+.section-head h2 .accent {
+    color: #e8b84b;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+.section-head p { color: var(--ink-soft); }
+
+/* ---------- Tarjetas sobrias ---------- */
+.card, .tool, .ficha, .sky-stat-card, .trophy-shelf-card, .sky-frame, .astro-rich-card {
+    background: var(--card);
+    border: 1px solid rgba(232, 184, 75, 0.16);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover, .tool:hover, .ficha:hover, .sky-stat-card:hover, .astro-rich-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(232, 184, 75, 0.5);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+}
+
+.card img, .astro-card-top img { border-radius: 12px 12px 0 0; }
+
+.card h3, .tool h3, .ficha h3, .trophy-shelf-title, .astro-name-wrap h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.card-tag {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e8b84b;
+    background: rgba(232, 184, 75, 0.10);
+    border: 1px solid rgba(232, 184, 75, 0.35);
+    border-radius: 6px;
+}
+
+.card ul li {
+    background: var(--paper-2);
+    border: 0;
+    border-radius: 8px;
+}
+
+.ficha {
+    border-top: 3px solid #e8b84b;
+    border-radius: 12px;
+}
+
+.ficha .ico {
+    background: #0d2016;
+    border: 1px solid rgba(232, 184, 75, 0.3);
+    color: #e8b84b;
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+.ficha .label {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e8b84b;
+}
+
+.flag {
+    border-left: 3px solid #e8b84b;
+    padding-left: 12px;
+    color: var(--gold-soft);
+}
+
+.tool .tool-tag { color: #e8b84b; letter-spacing: 0.06em; }
+
+.tool input[type="number"],
+.tool select,
+.aula-bar input {
+    background: #0d1812;
+    border: 1px solid rgba(232, 184, 75, 0.25);
+    color: var(--ink);
+    border-radius: 8px;
+}
+
+.tool input:focus, .tool select:focus {
+    border-color: #e8b84b;
+    box-shadow: none;
+    outline: none;
+}
+
+.tool .tool-btn, .btn-check {
+    background: #17723c;
+    border-radius: 8px;
+    box-shadow: none;
+    font-weight: 600;
+}
+
+.tool .tool-btn:hover, .btn-check:hover { background: #1b8547; }
+
+.tool-results .row { background: var(--paper-2); border: 0; border-radius: 8px; }
+
+.chips .chip {
+    background: transparent;
+    border: 1px solid rgba(232, 184, 75, 0.3);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    font-weight: 600;
+}
+
+.chips .chip.active, .chip.active {
+    background: #17723c !important;
+    color: #fff;
+    border-color: #17723c;
+    box-shadow: none;
+}
+
+/* ---------- Hitos ---------- */
+.hito-date {
+    border-radius: 10px;
+    background: #0d2016;
+    border: 1px solid rgba(232, 184, 75, 0.3);
+    box-shadow: none;
+}
+
+/* ---------- Banners ---------- */
+.aula-banner {
+    background: linear-gradient(120deg, #0a1f14 0%, #0d2a1c 100%);
+    border: 1px solid rgba(232, 184, 75, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.ab-ico {
+    border: 1.5px solid rgba(232, 184, 75, 0.5);
+    color: #e8b84b;
+    border-radius: 12px;
+}
+
+.ab-text h3 { font-family: var(--serif); }
+
+/* ---------- Arco: cielo / planetario ---------- */
+.sky-stat-tag {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e8b84b;
+}
+
+.sky-frame { border: 1px solid rgba(232, 184, 75, 0.22); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); }
+.sky-embed { border-radius: 12px; }
+
+.sky-frame-head {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(10, 31, 20, 0.92);
+    border-bottom: 1px solid rgba(232, 184, 75, 0.25);
+    color: rgba(245, 241, 230, 0.85);
+}
+
+.sky-live {
+    background: #e8b84b;
+    color: #16200f;
+    border-radius: 6px;
+}
+
+.rotate-tip, .sky-hint { color: rgba(245, 241, 230, 0.72); }
+
+/* ---------- Explorador orbital ---------- */
+.orrery-section { background: #06120c; }
+
+.orrery-canvas-card {
+    background: rgba(8, 20, 13, 0.92);
+    border: 1px solid rgba(232, 184, 75, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.orrery-info-card {
+    background: rgba(10, 25, 17, 0.95);
+    border: 1px solid rgba(232, 184, 75, 0.25);
+    border-radius: 12px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.orrery-btn {
+    background: #0d2016;
+    border: 1px solid rgba(232, 184, 75, 0.3);
+    color: var(--ink-soft);
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.orrery-btn:hover { border-color: #e8b84b; color: #e8b84b; }
+.orrery-btn.active { background: #17723c; border-color: #17723c; color: #fff; }
+
+/* ---------- Aula de cristal → salón oficial ---------- */
+.aula-hero {
+    background: linear-gradient(180deg, #06120c 0%, #0b2216 100%);
+    border-bottom: 3px solid #e8b84b;
+    color: #fff;
+    text-align: center;
+    padding: 76px 24px;
+}
+
+.aula-hero h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(30px, 4vw, 46px);
+    color: #fff;
+}
+
+.aula-hero p {
+    color: rgba(245, 241, 230, 0.8);
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aula-tabs {
+    background: var(--card);
+    border: 1px solid rgba(232, 184, 75, 0.22);
+    border-radius: 12px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    gap: 6px;
+}
+
+.aula-tab {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-radius: 8px;
+}
+
+.aula-tab:hover { color: #e8b84b; }
+
+.aula-tab.active {
+    background: #17723c !important;
+    color: #fff;
+    box-shadow: none;
+}
+
+.unidad {
+    background: var(--card);
+    border-left: 4px solid #e8b84b;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.unidad-num, .modulo-num {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #e8b84b;
+}
+
+.modulo-card {
+    background: var(--card);
+    border: 1px solid rgba(232, 184, 75, 0.14);
+    border-radius: 10px;
+}
+
+.modulo-card h3 { font-family: var(--serif); }
+
+.pregunta {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.opcion {
+    border-radius: 8px;
+    border: 1.5px solid var(--line);
+}
+
+.opcion:hover { border-color: #e8b84b; box-shadow: none; }
+
+.opcion.ok {
+    background: #12351f;
+    border-color: #2d7a4a;
+    color: #8fddb0;
+}
+
+.opcion.mal {
+    background: #3a1522;
+    border-color: #a0384f;
+    color: #ffc2d4;
+}
+
+.pregunta .retro { border-top: 1px dashed var(--line); }
+
+.btn-retry {
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    font-weight: 600;
+}
+
+.aula-progress .bar { background: #e8b84b; }
+
+/* ---------- Juego ---------- */
+.juego-canvas-wrap {
+    border: 1px solid rgba(232, 184, 75, 0.25);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.trophy-planet-item { border-radius: 10px; }
+.trophy-planet-item.unlocked { border-color: #e8b84b; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+
+.trophy-shelf-title {
+    font-family: var(--serif);
+    letter-spacing: 0;
+}
+
+/* ---------- Modal ---------- */
+.modal-box {
+    background: var(--card);
+    border: 1px solid #e8b84b;
+    border-radius: 12px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Astrónomos ---------- */
+.astro-honor-title {
+    font-family: var(--serif);
+    font-style: italic;
+    color: #e8b84b;
+}
+
+.astro-quote-lead {
+    background: var(--paper-2);
+    border-left: 3px solid #e8b84b;
+    border-radius: 0 8px 8px 0;
+}
+
+.astro-block-label {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e8b84b;
+}
+
+.astro-expand-btn {
+    border-radius: 6px;
+    font-weight: 600;
+    border: 1px solid rgba(232, 184, 75, 0.4);
+}
+
+.astro-expand-btn:hover { background: #e8b84b; color: #16200f; }
+
+.astro-masterpiece { border-top: 1px dashed rgba(232, 184, 75, 0.3); }
+
+/* ---------- Pie institucional ---------- */
+.footer {
+    background: #050c08;
+    border-top: none;
+}
+
+.footer::before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg,
+        #e8b84b 0%, #e8b84b 33.333%,
+        #2e6fb0 33.334%, #2e6fb0 66.666%,
+        #c34a3c 66.667%, #c34a3c 100%);
+}
+
+.footer h4 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #e8b84b;
+}
+
+.footer a, .footer p { color: rgba(245, 241, 230, 0.72); }
+.footer a:hover { color: #fff; }
+.footer-bottom { color: rgba(245, 241, 230, 0.5); }
+
+/* ---------- Reproductor ---------- */
+.interstellar-player-dock { border: 1px solid rgba(232, 184, 75, 0.3); }
+.interstellar-title { font-weight: 600; }
+
+/* ---------- Menú móvil ---------- */
+@media (max-width: 760px) {
+    .main-nav {
+        background: rgba(6, 16, 11, 0.99);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .hero { padding: 64px 22px 56px; }
+    .hero-stats { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hero-stats div + div { border-left: 0 !important; padding-left: 0; }
+
+    .aula-tabs { flex-wrap: wrap; }
 }

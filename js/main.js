@@ -32,9 +32,9 @@ function initNav() {
 function initTheme() {
     const THEMES = ['default', 'dark', 'aurora'];
     const THEME_NAMES = {
-        'default': '🌲 Bosque',
-        'dark': '🌑 Noche',
-        'aurora': '🟢 Aurora'
+        'default': 'Bosque',
+        'dark': 'Noche',
+        'aurora': 'Aurora'
     };
 
     let saved = localStorage.getItem('fundacite_theme') || 'default';
@@ -771,7 +771,7 @@ function initSolarOrrery() {
 
     document.getElementById('orrery-pause-btn')?.addEventListener('click', (e) => {
         isPlaying = !isPlaying;
-        e.currentTarget.textContent = isPlaying ? '⏸ Pausar' : '▶ Reanudar';
+        e.currentTarget.textContent = isPlaying ? 'Pausar' : 'Reanudar';
     });
 
     document.querySelectorAll('.orrery-speed-btn').forEach((btn) => {
@@ -1086,7 +1086,7 @@ function initClassroom() {
                 if (certTab) {
                     certTab.removeAttribute('disabled');
                     certTab.classList.add('unlocked');
-                    certTab.textContent = '🏆 Tu Certificado (¡Aprobado!)';
+                    certTab.textContent = '3. Mi Certificado Oficial (¡Aprobado!)';
                 }
             } else {
                 playChime(330.0);
