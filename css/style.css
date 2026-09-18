@@ -1623,6 +1623,24 @@ a { color: inherit; }
 .trophy-planet-status { font-size: 10px; color: var(--muted); }
 .trophy-planet-item.unlocked .trophy-planet-status { color: var(--green); font-weight: 700; }
 
+.game-stats-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 2px;
+}
+.stat-pill {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 12px;
+}
+.stat-pill b { color: var(--green); }
+
 /* ============================================================
    PIE INSTITUCIONAL
    ============================================================ */

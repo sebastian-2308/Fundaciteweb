@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apunta al Planeta · Astronomías del Mundo · Fundacite Caracas</title>
-    <meta name="description" content="Juego astronómico de Fundacite Caracas: apunta tu telescopio al planeta, llena su anillo de enfoque y captura los 8 planetas del sistema solar. Juega en el móvil o en la computadora.">
+    <title>Apunta al Planeta · Misión Sistema Solar · Astronomías del Mundo</title>
+    <meta name="description" content="Misión Sistema Solar, el juego astronómico de Fundacite Caracas: viaja del Sol a Neptuno, enfoca los planetas con tu telescopio, aprende ciencia real, esquiva naves y agujeros negros y desbloquea coronas de observación.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
     <!-- ============ INTRO ============ -->
     <section class="aula-hero">
         <h1>Apunta al Planeta</h1>
-        <p>Captura los 8 planetas, destruye las naves de combate y colapsa los agujeros negros antes de que devoren tu órbita. Mantén el telescopio (ratón o dedo) sobre un objetivo para llenar su anillo de enfoque.</p>
+        <p>Misión Sistema Solar: una odisea de diez etapas que va del Sol a las Afueras Heladas. Mueve tu telescopio, sostén el foco sobre cada planeta para capturarlo y conoce sus datos reales. Esquiva naves hostiles y agujeros negros, caza cometas y desbloquea coronas de observación.</p>
     </section>
 
     <!-- ============ JUEGO ============ -->
@@ -53,54 +53,55 @@
                 </span>
             </div>
             <div class="juego-canvas-wrap">
-                <canvas id="game-canvas" width="900" height="650" tabindex="0" aria-label="Juego Apunta al Planeta: apunta y captura los planetas">Tu navegador no soporta este juego.</canvas>
+                <canvas id="game-canvas" width="960" height="640" tabindex="0" aria-label="Juego Apunta al Planeta: Misión Sistema Solar. Apunta y captura los planetas">Tu navegador no soporta este juego.</canvas>
             </div>
-            <p class="sky-hint"><b>Cómo jugar:</b> Mantén presionado el clic, el dedo o la tecla <b>[Espacio]</b> sobre cualquier planeta para llenar su anillo de enfoque. ¡Abre la TIENDA durante la partida para activar escudos o agujeros negros captadores!</p>
+            <p class="sky-hint"><b>Cómo jugar:</b> Aprieta el clic, el dedo o la tecla <b>[Espacio]</b> para mover el telescopio y mantén el foco sobre un planeta hasta llenar su anillo dorado. Las <b>capturas en cadena</b> montan el combo; los cometas sueltan potenciadores como <b>Turbo-enfoque</b>, <b>Nova</b> o <b>Criofreno</b>.</p>
         </div>
 
         <!-- ============ EXTRAS DEL JUEGO: TROFEOS Y GUÍA ============ -->
         <div class="game-extras-grid">
             <div class="trophy-shelf-card">
-                <h3 class="trophy-shelf-title">Galería de Trofeos del Sistema Solar</h3>
-                <p style="font-size:13.5px; color:var(--muted); margin:0;">Captura los 8 planetas durante tus partidas para desbloquear su holograma en tu colección personal:</p>
-                
+                <h3 class="trophy-shelf-title">Colección del Sistema Solar</h3>
+                <p style="font-size:13.5px; color:var(--muted); margin:0 0 8px;">Todo lo que capturas se guarda en tu colección personal. Los planetas desbloqueados muestran su holograma y sus datos científicos quedan a tu disposición.</p>
+                <div class="game-stats-line" id="game-stats"></div>
+
                 <div class="trophy-shelf-grid" id="trophy-shelf-grid">
-                    <div class="trophy-planet-item" id="trophy-Mercurio" title="Mercurio">
+                    <div class="trophy-planet-item" id="trophy-Mercurio" data-planeta="Mercurio" title="Mercurio">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #9a9a9a, #222);">☿</div>
                         <span class="trophy-planet-name">Mercurio</span>
                         <span class="trophy-planet-status">Bloqueado</span>
                     </div>
-                    <div class="trophy-planet-item" id="trophy-Venus" title="Venus">
+                    <div class="trophy-planet-item" id="trophy-Venus" data-planeta="Venus" title="Venus">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #d9a44a, #332000);">♀</div>
                         <span class="trophy-planet-name">Venus</span>
                         <span class="trophy-planet-status">Bloqueado</span>
                     </div>
-                    <div class="trophy-planet-item" id="trophy-Tierra" title="Tierra">
+                    <div class="trophy-planet-item" id="trophy-Tierra" data-planeta="Tierra" title="Tierra">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #4f8ed9, #0a2040);">♁</div>
                         <span class="trophy-planet-name">Tierra</span>
                         <span class="trophy-planet-status">Bloqueado</span>
                     </div>
-                    <div class="trophy-planet-item" id="trophy-Marte" title="Marte">
+                    <div class="trophy-planet-item" id="trophy-Marte" data-planeta="Marte" title="Marte">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #c1543c, #3a0d05);">♂</div>
                         <span class="trophy-planet-name">Marte</span>
                         <span class="trophy-planet-status">Bloqueado</span>
                     </div>
-                    <div class="trophy-planet-item" id="trophy-Júpiter" title="Júpiter">
+                    <div class="trophy-planet-item" id="trophy-Júpiter" data-planeta="Júpiter" title="Júpiter">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #c89a63, #382410);">♃</div>
                         <span class="trophy-planet-name">Júpiter</span>
                         <span class="trophy-planet-status">Bloqueado</span>
                     </div>
-                    <div class="trophy-planet-item" id="trophy-Saturno" title="Saturno">
+                    <div class="trophy-planet-item" id="trophy-Saturno" data-planeta="Saturno" title="Saturno">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #e0c98f, #403418);">♄</div>
                         <span class="trophy-planet-name">Saturno</span>
                         <span class="trophy-planet-status">Bloqueado</span>
                     </div>
-                    <div class="trophy-planet-item" id="trophy-Urano" title="Urano">
+                    <div class="trophy-planet-item" id="trophy-Urano" data-planeta="Urano" title="Urano">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #7fc9c9, #103434);">♅</div>
                         <span class="trophy-planet-name">Urano</span>
                         <span class="trophy-planet-status">Bloqueado</span>
                     </div>
-                    <div class="trophy-planet-item" id="trophy-Neptuno" title="Neptuno">
+                    <div class="trophy-planet-item" id="trophy-Neptuno" data-planeta="Neptuno" title="Neptuno">
                         <div class="trophy-planet-disc" style="background: radial-gradient(circle at 30% 30%, #5a74c4, #0e183a);">♆</div>
                         <span class="trophy-planet-name">Neptuno</span>
                         <span class="trophy-planet-status">Bloqueado</span>
@@ -111,12 +112,14 @@
             <div class="trophy-shelf-card">
                 <h3 class="trophy-shelf-title">Guía Táctica y Atajos</h3>
                 <ul style="font-size:13.5px; color:var(--ink-soft); padding-left:18px; line-height:1.7; margin-top:10px;">
-                    <li><b>Clic izquierdo / Táctil:</b> Apuntar y enfocar</li>
-                    <li><b>Barra espaciadora:</b> Enfocar objetivo actual</li>
-                    <li><b>Tecla [F]:</b> Alternar Pantalla Completa</li>
-                    <li><b>Tecla [P]:</b> Pausar o reanudar</li>
-                    <li><b>Tecla [M]:</b> Activar / silenciar audio</li>
-                    <li><b>Teclas [1 - 6]:</b> Comprar potenciadores en Tienda</li>
+                    <li><b>Clic / Táctil / [Espacio]:</b> mover el telescopio y enfocar</li>
+                    <li><b>[F] y [P]:</b> pantalla completa · pausa · <b>[M]</b> sonido</li>
+                    <li><b>Cada <b>3 capturas</b> avanzas a la siguiente etapa</b> del recorrido</li>
+                    <li><b>Captura en cadena:</b> llena el foco rápido para <b>“Foco Perfecto”</b> y más estrellas</li>
+                    <li><b>Cometas:</b> los cruzas para ganar puntos y potenciadores</li>
+                    <li><b>Naves y agujeros negros:</b> evítalos; cada impacto cuesta una vida</li>
+                    <li><b>Potenciadores:</b> Turbo-enfoque ⚡ · Nova 💥 · Criofreno ❄️ · Escudo 🛡️ · Imán 🧲</li>
+                    <li><b>Estrellas ⭐:</b> acumúlalas en el menú para comprar coronas de observación</li>
                 </ul>
             </div>
         </div>
