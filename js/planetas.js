@@ -24,28 +24,28 @@
 
     // ---------------- Datos científicos reales ----------------
     const PLANETAS = [
-        { nombre: 'Mercurio', color: [183, 176, 158], radio: 17, craters: 0.9, bandas: 0, casquete: 0, anillos: 0, luna: 0,
+        { nombre: 'Mercurio', color: [183, 176, 158], radio: 27, craters: 0.9, bandas: 0, casquete: 0, anillos: 0, luna: 0,
           diam: '4 879 km', masa: '3,30×10²³ kg', dia: '59 días', año: '88 días', lunas: '0', temp: '−180 a 430 °C', dist: '57,9 M km',
           c1: 'Es el planeta más pequeño y el más cercano al Sol.', c2: 'Un año mercuriano dura solo 88 días terrestres.', c3: 'Sus cráteres guardan hielo en los polos, siempre en sombra.' },
-        { nombre: 'Venus', color: [232, 199, 143], radio: 22, craters: 0.15, bandas: 0.55, casquete: 0, anillos: 0, luna: 0,
+        { nombre: 'Venus', color: [232, 199, 143], radio: 33, craters: 0.15, bandas: 0.55, casquete: 0, anillos: 0, luna: 0,
           diam: '12 104 km', masa: '4,87×10²⁴ kg', dia: '243 días', año: '225 días', lunas: '0', temp: '≈ 460 °C', dist: '108,2 M km',
           c1: 'Gira al revés: su día dura más que su año.', c2: 'Es el planeta más caliente por su efecto invernadero extremo.', c3: 'Es el astro más brillante del cielo tras el Sol y la Luna.' },
-        { nombre: 'Tierra', color: [70, 130, 220], radio: 22, craters: 0, bandas: 0, casquete: 0.55, anillos: 0, luna: 1,
+        { nombre: 'Tierra', color: [70, 130, 220], radio: 33, craters: 0, bandas: 0, casquete: 0.55, anillos: 0, luna: 1,
           diam: '12 742 km', masa: '5,97×10²⁴ kg', dia: '24 horas', año: '365,25 días', lunas: '1 (la Luna)', temp: '≈ 15 °C', dist: '149,6 M km',
           c1: 'El único mundo conocido con vida y océanos.', c2: 'Su luna estabiliza el eje de giro del planeta.', c3: 'A 40 000 km orbita la Luna, nuestro centinela rocoso.' },
-        { nombre: 'Marte', color: [214, 92, 55], radio: 19, craters: 0.6, bandas: 0, casquete: 0.85, anillos: 0, luna: 1,
+        { nombre: 'Marte', color: [214, 92, 55], radio: 30, craters: 0.6, bandas: 0, casquete: 0.85, anillos: 0, luna: 1,
           diam: '6 779 km', masa: '6,42×10²³ kg', dia: '24,6 horas', año: '687 días', lunas: '2 (Fobos y Deimos)', temp: '≈ −63 °C', dist: '227,9 M km',
           c1: 'Tiene el volcán más alto: el Monte Olimpo, 22 km.', c2: 'El óxido de hierro le da su color rojizo.', c3: 'Sus dos lunas son asteroides capturados.' },
-        { nombre: 'Júpiter', color: [216, 168, 116], radio: 28, craters: 0, bandas: 0.85, casquete: 0, anillos: 0, luna: 1, mancha: 1,
+        { nombre: 'Júpiter', color: [216, 168, 116], radio: 40, craters: 0, bandas: 0.85, casquete: 0, anillos: 0, luna: 1, mancha: 1,
           diam: '139 820 km', masa: '1,90×10²⁷ kg', dia: '9,9 horas', año: '11,9 años', lunas: '95 conocidas', temp: '≈ −110 °C', dist: '778,5 M km',
           c1: 'Cabrían unas 1 300 Tierras dentro de Júpiter.', c2: 'Su Gran Mancha Roja es una tormenta de siglos.', c3: 'Europa, su luna, esconde un océano bajo el hielo.' },
-        { nombre: 'Saturno', color: [238, 218, 162], radio: 25, craters: 0, bandas: 0.4, casquete: 0, anillos: 1, luna: 1,
+        { nombre: 'Saturno', color: [238, 218, 162], radio: 37, craters: 0, bandas: 0.4, casquete: 0, anillos: 1, luna: 1,
           diam: '116 460 km', masa: '5,68×10²⁶ kg', dia: '10,7 horas', año: '29,5 años', lunas: '146+', temp: '≈ −140 °C', dist: '1 434 M km',
           c1: 'Sus anillos de hielo alcanzan 280 000 km de ancho.', c2: 'Es tan ligero que podría flotar en agua.', c3: 'Titán tiene atmósfera y lagos de metano líquido.' },
-        { nombre: 'Urano', color: [128, 212, 216], radio: 22, craters: 0, bandas: 0.2, casquete: 0, anillos: 1, luna: 1, inclinado: 1,
+        { nombre: 'Urano', color: [128, 212, 216], radio: 33, craters: 0, bandas: 0.2, casquete: 0, anillos: 1, luna: 1, inclinado: 1,
           diam: '50 724 km', masa: '8,68×10²⁵ kg', dia: '17,2 horas', año: '84 años', lunas: '28 conocidas', temp: '≈ −195 °C', dist: '2 871 M km',
           c1: 'Rota “tumbado”: su eje está inclinado 98 grados.', c2: 'Fue el primer planeta descubierto con telescopio (1781).', c3: 'Es un gigante de hielo teñido por el metano.' },
-        { nombre: 'Neptuno', color: [82, 112, 224], radio: 21, craters: 0, bandas: 0.5, casquete: 0, anillos: 0, luna: 1, mancha: 1,
+        { nombre: 'Neptuno', color: [82, 112, 224], radio: 32, craters: 0, bandas: 0.5, casquete: 0, anillos: 0, luna: 1, mancha: 1,
           diam: '49 244 km', masa: '1,02×10²⁶ kg', dia: '16,1 horas', año: '165 años', lunas: '16 conocidas', temp: '≈ −200 °C', dist: '4 495 M km',
           c1: 'Registra los vientos más rápidos: más de 2 000 km/h.', c2: 'Fue encontrado por las matemáticas antes que por el telescopio.', c3: 'Su gran mancha oscura va y viene con el tiempo.' }
     ];
@@ -66,9 +66,9 @@
     ];
 
     const DIFICULTADES = [
-        { foco: 1.55, vida: 14, vel: 0.8, naves: 5, bala: 0.55, naveFuego: 7, bh: 7, salto: { planeta: 4, cometa: 7, nave: 9, ast: 6, bh: 10 } },
-        { foco: 1.15, vida: 10, vel: 1.0, naves: 3, bala: 1.0, naveFuego: 5, bh: 5, salto: { planeta: 3.6, cometa: 6, nave: 7, ast: 5, bh: 8 } },
-        { foco: 0.85, vida: 7.5, vel: 1.25, naves: 1, bala: 1.5, naveFuego: 4, bh: 3, salto: { planeta: 3, cometa: 5, nave: 6, ast: 4, bh: 6 } }
+        { foco: 1.55, vida: 20, vel: 0.8, naves: 5, bala: 0.55, naveFuego: 7, bh: 7, salto: { planeta: 4, cometa: 7, nave: 9, ast: 6, bh: 10 } },
+        { foco: 1.15, vida: 16, vel: 1.0, naves: 3, bala: 1.0, naveFuego: 5, bh: 5, salto: { planeta: 3.6, cometa: 6, nave: 7, ast: 5, bh: 8 } },
+        { foco: 0.85, vida: 12, vel: 1.25, naves: 1, bala: 1.5, naveFuego: 4, bh: 3, salto: { planeta: 3, cometa: 5, nave: 6, ast: 4, bh: 6 } }
     ];
 
     const COSMETICOS = [
@@ -572,7 +572,7 @@
         const d = PLANETAS[Math.min(7, Math.max(0, idxPlaneta))];
         const vel = (34 + Math.random() * 22) * DIFICULTADES[difIdx].vel;
         const rumbo = Math.random() * TAU;
-        const radioMul = partida && partida.etapa >= 9 ? 0.85 : 1;
+        const radioMul = partida && partida.etapa >= 9 ? 0.9 : 1;
         return {
             nombre: d.nombre, datos: d,
             x: VW * (0.15 + Math.random() * 0.7), y: VH * (0.18 + Math.random() * 0.64),
@@ -585,10 +585,12 @@
     }
     function dibujarPlaneta(pl) {
         const { x, y, r } = pl, d = pl.datos;
+        const fugando = pl.estado === 'escapado';
+        if (fugando) ctx.globalAlpha = Math.max(0, Math.min(1, (pl.fugaT || 0) * 0.85));
         // Resplandor exterior
         for (let i = 5; i >= 1; i--) {
-            ctx.fillStyle = 'rgba(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ',' + (0.09 - i * 0.012) + ')';
-            ctx.beginPath(); ctx.arc(x, y, r + i * 6 + Math.sin(pl.pulso * 3) * 2, 0, TAU); ctx.fill();
+            ctx.fillStyle = 'rgba(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ',' + (0.17 - i * 0.018) + ')';
+            ctx.beginPath(); ctx.arc(x, y, r + i * 7 + Math.sin(pl.pulso * 3) * 2, 0, TAU); ctx.fill();
         }
         const grad = ctx.createRadialGradient(x - r * 0.4, y - r * 0.4, r * 0.1, x, y, r);
         grad.addColorStop(0, 'rgba(255,255,255,0.55)');
@@ -675,10 +677,11 @@
         ctx.strokeStyle = 'rgba(255,255,255,0.22)';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke();
+        if (fugando) ctx.globalAlpha = 1;
     }
     function dibujarAnilloFoco(pl) {
         if (pl.estado !== 'activo') return;
-        const rr = pl.radio + 30;
+        const rr = pl.radio + 34;
         const ag = frames * 0.025;
         ctx.strokeStyle = 'rgba(217,183,90,0.35)';
         ctx.lineWidth = 2;
@@ -692,8 +695,8 @@
             ctx.lineWidth = 1.5;
             ctx.beginPath(); ctx.arc(pl.x, pl.y, rr - 6 - (pl.foco > 0.5 ? 4 : 0), 0, TAU); ctx.stroke();
         }
-        ctx.fillStyle = 'rgba(255,245,210,0.9)';
-        ctx.font = '700 11px "Space Grotesk", sans-serif';
+        ctx.fillStyle = 'rgba(255,245,210,0.95)';
+        ctx.font = '800 15px "Space Grotesk", sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(pl.nombre.toUpperCase(), pl.x, pl.y - rr - 9);
         const vp = Math.max(0, pl.vida);
@@ -716,9 +719,10 @@
         }
         if (pl.estado === 'activo') {
             pl.vida -= dt;
-            if (pl.vida <= 0) { pl.estado = 'escapado'; S.fuga(); }
+            if (pl.vida <= 0) { pl.estado = 'escapado'; pl.fugaT = 1.2; S.fuga(); }
         } else {
             if (pl.foco > 0) pl.foco = Math.max(0, pl.foco - dt * 2);
+            if (pl.fugaT > 0) pl.fugaT -= dt;
         }
         pl.x += pl.vx * dt; pl.y += pl.vy * dt;
         const mg = 58;
@@ -920,8 +924,7 @@
         asteroides = [];
         for (let i = 0; i < Math.round(ETAPAS[0].ast * 26); i++) asteroides.push(crearAsteroide());
         banner('✦ Misión Sistema Solar · ¡Captura los planetas! ✦', [139, 176, 116]);
-        spawnPlaneta(0);
-        spawnPlaneta(0);
+        for (let i = 0; i < 3; i++) spawnPlaneta(0);
     }
 
     const OBJETIVO = [0, 0, 1, 2, 3, 3, 4, 5, 6, 7];
@@ -1006,7 +1009,7 @@
             }
         } else {
             const activos = partida.planetas.filter((x) => x.estado === 'activo').length;
-            if (activos < 2) spawnPlaneta(partida.etapa);
+            if (activos < 3) spawnPlaneta(partida.etapa);
         }
     }
     function golpear(grave) {
@@ -1093,7 +1096,11 @@
         for (const pl of P.planetas) actualizarPlaneta(pl, dt);
         for (let i = P.planetas.length - 1; i >= 0; i--) {
             const pl = P.planetas[i];
-            if (pl.estado !== 'activo' && pl.foco <= 0) P.planetas.splice(i, 1);
+            const muerto = pl.estado === 'escapado' ? (pl.fugaT || 0) <= 0
+                : pl.estado === 'capturado' ? pl.foco <= 0
+                : pl.estado === 'devorado' ? pl.foco <= 0
+                : false;
+            if (muerto) P.planetas.splice(i, 1);
         }
         if (P.planetas.length === 0) spawnPlaneta(P.etapa);
 
@@ -1197,7 +1204,7 @@
         // Spawns por etapa
         if (P.etapa >= 1 && P.cometas.filter((c) => !c.capturado).length < 1 && Math.random() < dt / 5) P.cometas.push(crearCometa());
         const activos = P.planetas.filter((x) => x.estado === 'activo').length;
-        if (activos < 3 && Math.random() < dt * 0.7) spawnPlaneta(P.etapa);
+        if (activos < 4 && Math.random() < dt * 0.9) spawnPlaneta(P.etapa);
         if (P.etapa >= cfg.naves && P.naves.length < 2 && Math.random() < dt * 0.5) P.naves.push(crearNave());
         if (P.etapa >= cfg.bh && P.agujeros.length < 1 && Math.random() < dt * 0.4) P.agujeros.push(crearAgujero());
     }
@@ -1464,7 +1471,7 @@
         dibujarBotones();
     }
     function dibujarJuego() {
-        if (estado !== 'juego') return;
+        if (estado !== 'juego' && estado !== 'pausa') return;
         botones = [];
         dibujarFondo();
         dibujarAsteroides();
