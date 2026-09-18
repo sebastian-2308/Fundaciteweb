@@ -238,6 +238,8 @@
 
     // ---------------- Escala / vista ----------------
     let cssW = 0, cssH = 0, dpr = 1, scale = 1, ox = 0, oy = 0;
+    let uiK = 1;
+    function scl() { return uiK; }
     function fit() {
         const r = wrap.getBoundingClientRect();
         dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -245,6 +247,7 @@
         canvas.width = Math.round(cssW * dpr); canvas.height = Math.round(cssH * dpr);
         scale = Math.min(cssW / VW, cssH / VH);
         ox = (cssW - VW * scale) / 2; oy = (cssH - VH * scale) / 2;
+        uiK = Math.max(1, Math.min(2.0, 0.85 / Math.max(0.32, scale)));
     }
     function mundo() {
         ctx.setTransform(dpr * scale, 0, 0, dpr * scale, dpr * ox, dpr * oy);
@@ -510,7 +513,7 @@
     function dibujarVistaTelescopio(x, y) {
         const cosm = COSMETICOS.find((c) => c.id === save.elegido) || COSMETICOS[0];
         const id = cosm.id;
-        const r = 34 + Math.sin(frames * 0.05) * 2;
+        const r = (34 + Math.sin(frames * 0.05) * 2) * Math.max(1, Math.min(1.5, uiK));
         if (id === 'clasico' || id === 'dorado') {
             ctx.strokeStyle = id === 'dorado' ? 'rgba(217,183,90,0.95)' : 'rgba(38,190,110,0.95)';
             ctx.lineWidth = 2.4;
@@ -577,7 +580,7 @@
             nombre: d.nombre, datos: d,
             x: VW * (0.15 + Math.random() * 0.7), y: VH * (0.18 + Math.random() * 0.64),
             vx: Math.cos(rumbo) * vel, vy: Math.sin(rumbo) * vel,
-            radio: d.radio * radioMul, foco: 0, enfocando: 0,
+            radio: d.radio * radioMul * uiK, foco: 0, enfocando: 0,
             pulso: Math.random() * TAU, dfase: Math.random() * TAU,
             vida: Math.max(DIFICULTADES[difIdx].vida - (partida ? partida.etapa : 0) * 0.6, 4),
             estado: 'activo', perfecto: true
@@ -592,6 +595,16 @@
             ctx.fillStyle = 'rgba(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ',' + (0.17 - i * 0.018) + ')';
             ctx.beginPath(); ctx.arc(x, y, r + i * 7 + Math.sin(pl.pulso * 3) * 2, 0, TAU); ctx.fill();
         }
+        // Halo luminoso tipo Sol para que el planeta no pase desapercibido
+        const halo = ctx.createRadialGradient(x, y, r * 0.2, x, y, r * 2.6);
+        halo.addColorStop(0, 'rgba(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ',0.55)');
+        halo.addColorStop(0.55, 'rgba(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ',0.16)');
+        halo.addColorStop(1, 'rgba(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ',0)');
+        ctx.fillStyle = halo;
+        ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, TAU); ctx.fill();
+        // Cuerpo: primero sólido (garantiza visibilidad si fallara el gradiente) y luego degradado
+        ctx.fillStyle = 'rgb(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ')';
+        ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
         const grad = ctx.createRadialGradient(x - r * 0.4, y - r * 0.4, r * 0.1, x, y, r);
         grad.addColorStop(0, 'rgba(255,255,255,0.55)');
         grad.addColorStop(0.45, 'rgb(' + d.color[0] + ',' + d.color[1] + ',' + d.color[2] + ')');
@@ -681,11 +694,16 @@
     }
     function dibujarAnilloFoco(pl) {
         if (pl.estado !== 'activo') return;
-        const rr = pl.radio + 34;
+        const rr = (pl.radio + 34) * uiK;
         const ag = frames * 0.025;
-        ctx.strokeStyle = 'rgba(217,183,90,0.35)';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(217,183,90,0.55)';
+        ctx.lineWidth = 2.2;
         ctx.beginPath(); ctx.arc(pl.x, pl.y, rr, 0, TAU); ctx.stroke();
+        // Pulso expansivo para llamar la atención sobre el objetivo
+        const pp = (frames / 60 + pl.dfase) % 1;
+        ctx.strokeStyle = 'rgba(255,255,255,' + (0.4 * (1 - pp)).toFixed(3) + ')';
+        ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.arc(pl.x, pl.y, rr * 0.5 + pp * rr * 0.85, 0, TAU); ctx.stroke();
         ctx.strokeStyle = 'rgba(232,200,120,0.95)';
         ctx.lineWidth = 3.2;
         const prog = Math.max(0.06, pl.foco);
@@ -696,12 +714,12 @@
             ctx.beginPath(); ctx.arc(pl.x, pl.y, rr - 6 - (pl.foco > 0.5 ? 4 : 0), 0, TAU); ctx.stroke();
         }
         ctx.fillStyle = 'rgba(255,245,210,0.95)';
-        ctx.font = '800 15px "Space Grotesk", sans-serif';
+        ctx.font = '800 ' + Math.round(15 * uiK) + 'px "Space Grotesk", sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(pl.nombre.toUpperCase(), pl.x, pl.y - rr - 9);
         const vp = Math.max(0, pl.vida);
         ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.font = '600 11px "IBM Plex Mono", monospace';
+        ctx.font = '600 ' + Math.round(11 * uiK) + 'px "IBM Plex Mono", monospace';
         ctx.fillText((vp).toFixed(1) + ' s', pl.x, pl.y + rr + 16);
     }
     function actualizarPlaneta(pl, dt) {
